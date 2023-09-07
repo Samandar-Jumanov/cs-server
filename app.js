@@ -15,7 +15,7 @@ app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/problems', problemRouter)
  
 
-sequelize.sync.then(()=>{
+sequelize.sync().then(()=>{
     console.log('Connected....')
 }).catch(err =>{
     console.log(err)
