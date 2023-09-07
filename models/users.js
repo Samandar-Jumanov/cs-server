@@ -17,35 +17,12 @@ const Users = sequelize.define('users', {
         type : DataTypes.STRING ,
         allowNull : false 
     }, 
-    token :
-    {
+    token :{
        type: DataTypes.STRING ,
        allowNull : false 
     }
 })
 
 
-const SharedProblems = sequelize.define('sharedProblems', {
-    id : {
-         type : DataTypes.INTEGER ,
-         autoIncrement : true 
-    },
-    problem : {
-         type : DataTypes.STRING ,
-         allowNull : false 
-    },
-    problemCreator : {
-        type : DataTypes.STRING ,
-        allowNull : false 
-    },
-    isSolved : {
-         type :DataTypes.BOOLEAN,
-         allowNull : false 
-    }
-})
 
-
-module.exports = {
-    Users,
-    SharedProblems
-}
+module.exports = Users
