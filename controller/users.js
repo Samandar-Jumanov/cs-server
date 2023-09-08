@@ -20,7 +20,8 @@ const Signup = async (req , res , next) =>{
 
         const newUser = await Users.create({
             username : username , 
-            password : hashedPassword 
+            password : hashedPassword ,
+            token :'null'
         })
 
         const token = jwt.sign({userid : newUser.id },  process.env.SECRETKEY)
