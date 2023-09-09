@@ -14,6 +14,7 @@ const getAllProblems = async (request , res , next ) =>{
         
     }
 }
+
 const shareProblem = async (req, res, next) => {
     const { problem, username, code } = req.body;
     let transaction;
@@ -54,7 +55,34 @@ const shareProblem = async (req, res, next) => {
       next(error);
     }
   };
-  
+
+const getUserSharedProblems = async (req , res , next ) =>{
+    const {userId} = req.params 
+
+    try {
+        const user = await Users.findByPk(userId , {
+             include :[
+                {model : SharedProblems , as :'sharedProblems'}
+             ]
+        })
+
+        if(!user){
+             return res.json({
+                message :'User not found '
+             })
+        }
+
+        const userSharedProblems = user.sharedProblems
+
+        return res.json({
+            userSharedProblems
+        })
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports ={
     shareProblem, 
     getUserSharedProblems,
