@@ -1,6 +1,6 @@
 const sequelize = require("../utils/db")
 const { DataTypes} = require('sequelize')
-
+const { Solutions } = require("./solutions")
 
 const SharedProblems = sequelize.define('sharedProblems', {
     id : {
@@ -25,6 +25,12 @@ const SharedProblems = sequelize.define('sharedProblems', {
      type : DataTypes.STRING , 
      allowNull : false 
     }
+})
+
+//Problems and Solutions 
+
+SharedProblems.hasMany(Solutions, {
+     as :'solutions'
 })
 
 
