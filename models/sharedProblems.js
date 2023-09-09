@@ -20,6 +20,10 @@ const SharedProblems = sequelize.define('sharedProblems', {
     isSolved : {
          type :DataTypes.BOOLEAN,
          allowNull : false 
+    },
+    code :{
+     type : DataTypes.STRING , 
+     allowNull : false 
     }
 })
 

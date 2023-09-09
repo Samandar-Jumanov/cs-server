@@ -15,13 +15,17 @@ const getAllProblems = async (request , response , next ) =>{
         
     }
 }
+
+
 const shareProblem = async (req, res , next ) =>{
-    const {problem , userId} = req.body 
+    const {problem , username, code } = req.body 
     let transaction;
 
     try {
         transaction = await sequelize.transaction()
-        const user = await Users.findOne(userId, {transaction})
+        const user = await Users.findOne({
+             where : { username }
+        }, {transaction})
         if(!user){
             return res.json({
                 message :'User not found '
@@ -30,8 +34,9 @@ const shareProblem = async (req, res , next ) =>{
         }
         const newProblem = await SharedProblems.create({
             problem : problem,
-            problemCreator : user.username,
-            isSolved : false 
+            problemCreator :username,
+            isSolved : false ,
+            code : code 
         }, {transaction})
 
         await user.addSharedProblems(newProblem)
