@@ -44,7 +44,7 @@ const shareProblem = async (req, res , next ) =>{
             newProblem
         })
     } catch (error) {
-        if(error) await transaction.rollback();
+        // if(error) await transaction.rollback();
         next(error)
         
     }
