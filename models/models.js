@@ -115,7 +115,7 @@ const SentSolutions = sequelize.define('sentSolutions', {
 
 Users.hasMany(SharedProblems, {
   as: 'sharedProblems',
-  foreignKey :'username'
+  foreignKey :'userId'
 });
 
 Users.hasMany(SentSolutions, {
