@@ -111,10 +111,7 @@ const SentSolutions = sequelize.define('sentSolutions', {
 });
 
 // Associations
-Solutions.belongsTo(SharedProblems);
-SharedProblems.belongsTo(Users);
-SentSolutions.belongsTo(Users);
-RecievedSolutions.belongsTo(Users);
+
 
 Users.hasMany(SharedProblems, {
   as: 'sharedProblems',
@@ -131,6 +128,11 @@ Users.hasMany(RecievedSolutions, {
 SharedProblems.hasMany(Solutions, {
   as: 'solutionsToProblem',
 });
+
+Solutions.belongsTo(SharedProblems);
+SharedProblems.belongsTo(Users);
+SentSolutions.belongsTo(Users);
+RecievedSolutions.belongsTo(Users);
 
 module.exports = {
   Users,
