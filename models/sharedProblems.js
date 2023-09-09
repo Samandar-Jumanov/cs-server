@@ -30,7 +30,7 @@ const SharedProblems = sequelize.define('sharedProblems', {
 //Problems and Solutions 
 
 SharedProblems.hasMany(Solutions, {
-     as :'solutions'
+     as :'solutionsToProblem'
 })
 
 
