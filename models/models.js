@@ -115,6 +115,7 @@ const SentSolutions = sequelize.define('sentSolutions', {
 
 Users.hasMany(SharedProblems, {
   as: 'sharedProblems',
+  foreignKey :'username'
 });
 
 Users.hasMany(SentSolutions, {
@@ -130,7 +131,9 @@ SharedProblems.hasMany(Solutions, {
 });
 
 Solutions.belongsTo(SharedProblems);
-SharedProblems.belongsTo(Users);
+SharedProblems.belongsTo(Users, {
+    foreignKey :'username'
+});
 SentSolutions.belongsTo(Users);
 RecievedSolutions.belongsTo(Users);
 

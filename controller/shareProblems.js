@@ -3,10 +3,10 @@ const sequelize = require("../utils/db")
 
 
 
-const getAllProblems = async (request , response , next ) =>{
+const getAllProblems = async (request , res , next ) =>{
     try {
         const allProblems = await SharedProblems.findAll()
-        return response.json({
+        return res.json({
             allProblems
         })
     } catch (error) {
