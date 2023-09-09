@@ -56,20 +56,20 @@ const shareProblem = async (req, res, next) => {
     }
   };
 
-const getUserSharedProblems = async (req , res , next ) =>{
-    const {userId} = req.params 
+  const getUserSharedProblems = async (req, res, next) => {
+    const { userId } = req.params;
 
     try {
-        const user = await Users.findByPk(userId , {
-             include :[
-                {model : SharedProblems , as :'sharedProblems'}
-             ]
+        const user = await Users.findByPk(userId, {
+            include: [
+                { model: SharedProblems, as: 'sharedProblems' }
+            ]
         })
 
-        if(!user){
-             return res.json({
-                message :'User not found '
-             })
+        if (!user) {
+            return res.json({
+                message: 'User not found'
+            })
         }
 
         const userSharedProblems = user.sharedProblems
@@ -77,14 +77,13 @@ const getUserSharedProblems = async (req , res , next ) =>{
         return res.json({
             userSharedProblems
         })
-        
     } catch (error) {
         next(error)
     }
 }
 
-module.exports ={
-    shareProblem, 
+module.exports = {
+    shareProblem,
     getUserSharedProblems,
     getAllProblems
 }
