@@ -67,6 +67,10 @@ const Login = async (req, res , next ) =>{
         const  token = jwt.sign({userId : existingUser.id }, process.env.SECRETKEY)
         existingUser.token = token 
         await  existingUser.save()
+        res.json({
+            message :'Logged in ',
+            token 
+        })
     } catch (error) {
         next(error)
     }
