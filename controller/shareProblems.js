@@ -1,5 +1,4 @@
-const Users   = require('../models/users')
-const SharedProblems= require('../models/sharedProblems')
+const {Users, SharedProblems}   = require('../models/models')
 const sequelize = require("../utils/db")
 
 
