@@ -3,6 +3,18 @@ const SharedProblems= require('../models/sharedProblems')
 const sequelize = require("../utils/db")
 
 
+
+const getAllProblems = async (request , response , next ) =>{
+    try {
+        const allProblems = await SharedProblems.findAll()
+        return response.json({
+            allProblems
+        })
+    } catch (error) {
+        next(error)
+        
+    }
+}
 const shareProblem = async (req, res , next ) =>{
     const {problem , userId} = req.body 
     let transaction;
@@ -63,5 +75,6 @@ const getUserSharedProblems = async (req , res , next ) =>{
 
 module.exports ={
     shareProblem, 
-    getUserSharedProblems
+    getUserSharedProblems,
+    getAllProblems
 }
