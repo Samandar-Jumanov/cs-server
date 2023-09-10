@@ -16,45 +16,44 @@ const getAllProblems = async (request , res , next ) =>{
 }
 
 const shareProblem = async (req, res, next) => {
-    const { problem, username, code } = req.body;
-    let transaction;
-  
-    try {
-      transaction = await sequelize.transaction();
-  
-      const user = await Users.findOne({
-        where: { username },
-        transaction,
-      });
-  
-      if (!user) {
-        return res.json({
-          message: 'User not found',
-        });
-      }
-  
-      const newProblem = await SharedProblems.create(
-        {
-          problem: problem,
-          problemCreator: username,
-          isSolved: false,
-          code: code,
-        },
-        { transaction }
-      );
-  
-      await user.addSharedProblems(newProblem);
-  
-      await transaction.commit();
-  
+  const { problem, userId, code } = req.body;
+  let transaction;
+
+  try {
+    transaction = await sequelize.transaction();
+
+    const user = await Users.findByPk(userId, { transaction });
+
+    if (!user) {
       return res.json({
-        newProblem,
+        message: 'User not found',
       });
-    } catch (error) {
-      if (transaction) await transaction.rollback();
-      next(error);
     }
-  };
+
+    const newProblem = await SharedProblems.create(
+      {
+        problem: problem,
+        problemCreator: user.username,
+        isSolved: false,
+        code: code,
+        userId: user.id,
+      },
+      { transaction }
+    );
+
+    await user.addSharedProblems(newProblem, { transaction });
+
+    await transaction.commit();
+
+    return res.json({
+      newProblem,
+    });
+  } catch (error) {
+    if (transaction) await transaction.rollback();
+    next(error);
+  }
+};
+
 
   const getUserSharedProblems = async (req, res, next) => {
     const { userId } = req.params;

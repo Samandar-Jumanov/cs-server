@@ -30,7 +30,8 @@ const Signup = async (req , res , next) =>{
 
         return  res.json({
             token ,
-            message :'Created'
+            message :'Created',
+            newUser
         })
 
     } catch (error) {
@@ -69,7 +70,7 @@ const Login = async (req, res , next ) =>{
         await  existingUser.save()
         res.json({
             message :'Logged in ',
-            token 
+            existingUser
         })
     } catch (error) {
         next(error)

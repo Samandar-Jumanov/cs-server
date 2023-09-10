@@ -44,8 +44,11 @@ const SharedProblems = sequelize.define('sharedProblems', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });
-
 const Solutions = sequelize.define('solutions', {
   id: {
     type: DataTypes.INTEGER,
@@ -113,10 +116,7 @@ const SentSolutions = sequelize.define('sentSolutions', {
 // Associations
 
 
-Users.hasMany(SharedProblems, {
-  as: 'sharedProblems',
-  foreignKey :'userId'
-});
+
 
 Users.hasMany(SentSolutions, {
   as: 'sentSolutions',
@@ -131,11 +131,13 @@ SharedProblems.hasMany(Solutions, {
 });
 
 Solutions.belongsTo(SharedProblems);
-SharedProblems.belongsTo(Users, {
-    foreignKey :'username'
-});
+
 SentSolutions.belongsTo(Users);
 RecievedSolutions.belongsTo(Users);
+
+
+Users.hasMany(SharedProblems, { as: 'sharedProblems', foreignKey: 'userId' });
+SharedProblems.belongsTo(Users, { foreignKey: 'userId' });
 
 module.exports = {
   Users,
