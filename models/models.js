@@ -49,100 +49,13 @@ const SharedProblems = sequelize.define('sharedProblems', {
     allowNull: false,
   },
 });
-const Solutions = sequelize.define('solutions', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  solution: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  solverName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  isTrue: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  problemId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-});
-
-const RecievedSolutions = sequelize.define('recievedSolutions', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  solutionSentUsername: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  problem: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  solution: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
-
-const SentSolutions = sequelize.define('sentSolutions', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  solutionRecieverUsername: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  solution: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  problem: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
 
 // Associations
-
-
-
-
-Users.hasMany(SentSolutions, {
-  as: 'sentSolutions',
-});
-
-Users.hasMany(RecievedSolutions, {
-  as: 'recievedSolutions',
-});
-
-SharedProblems.hasMany(Solutions, {
-  as: 'solutionsToProblem',
-});
-
-Solutions.belongsTo(SharedProblems);
-
-SentSolutions.belongsTo(Users);
-RecievedSolutions.belongsTo(Users);
-
-
 Users.hasMany(SharedProblems, { as: 'sharedProblems', foreignKey: 'userId' });
 SharedProblems.belongsTo(Users, { foreignKey: 'userId' });
+
 
 module.exports = {
   Users,
   SharedProblems,
-  Solutions,
-  SentSolutions,
-  RecievedSolutions,
 };

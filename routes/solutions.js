@@ -1,6 +1,6 @@
-const solutionController = require('../controller/solutions')
-const solutionRouter = require('express').Router()
+// const solutionController = require('../controller/solutions')
+// const solutionRouter = require('express').Router()
 
-solutionRouter.post('/give-solution', solutionController.giveSolutions)
+// solutionRouter.post('/give-solution', solutionController.giveSolutions)
 
-module.exports = solutionRouter
+// module.exports = solutionRouter
