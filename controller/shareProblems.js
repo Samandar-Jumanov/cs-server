@@ -1,3 +1,4 @@
+const { response } = require('express')
 const {Users, SharedProblems}   = require('../models/models')
 const sequelize = require("../utils/db")
 
@@ -24,11 +25,11 @@ const shareProblem = async (req, res, next) => {
 
     const user = await Users.findByPk(userId, { transaction });
 
-    if (!user) {
-      return res.json({
-        message: 'User not found',
-      });
-    }
+    // if (!user) {
+    //    return  res.status(404).json({
+    //     message :" User not found "
+    //    })
+    // }
 
     const newProblem = await SharedProblems.create(
       {
