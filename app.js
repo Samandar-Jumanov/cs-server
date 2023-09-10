@@ -27,12 +27,7 @@ app.use('/api/v1/problems', problemRouter)
 // app.use('/api/v1/solutions', solutionRouter)
 
 sequelize.sync().then(()=>{
-    console.log('Connected....')
-}).catch(err =>{
+    app.listen(3001, ()=> console.log('DB connected and App is listening'))
+}).catch((err)=>{
     console.log(err)
 })
-
-app.listen(3001 , ()=>{
-    console.log('Server started')
-})
-

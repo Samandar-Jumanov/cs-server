@@ -4,4 +4,12 @@ const sequelize = new Sequelize('postgres://samandarjumanov:R89pzY1ZLn7HFuuVWZ9l
   dialect: 'postgres',
 });
 
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connection to the database has been established successfully.');
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database:', error);
+  });
+
 module.exports = sequelize
