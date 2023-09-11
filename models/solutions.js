@@ -32,8 +32,6 @@ const Solutions = sequelize.define('solutions',{
 
 
 Solutions.belongsTo(SharedProblems, { foreignKey: 'problemId' });
-Solutions.belongsTo(Users, { foreignKey: 'userId' });
-
 module.exports = {
    
     Solutions
