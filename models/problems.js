@@ -30,7 +30,7 @@ const SharedProblems = sequelize.define('sharedProblems', {
   });
 
 SharedProblems.belongsTo(Users, { foreignKey: 'userId' });
-SharedProblems.hasMany(Solutions, {foreignKey :'problemId' , as :'solutions'})
+SharedProblems.hasMany(Solutions, { as :'solutions'})
 
 module.exports = {
     SharedProblems
