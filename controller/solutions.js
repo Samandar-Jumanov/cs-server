@@ -1,4 +1,9 @@
-const giveSolutions = async (req, res, next) => {
+const { Users  } = require("../models/users");
+const sequelize = require("../utils/db");
+const {Solutions} = require('../models/solutions')
+const {SharedProblems} = require('../models/problems')
+
+const  giveSolutions = async (req, res, next) => {
     const { userId, recieverUserId, solution, problemId } = req.body;
   
     let transaction;

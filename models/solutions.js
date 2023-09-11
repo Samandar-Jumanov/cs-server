@@ -54,10 +54,10 @@ const RecievedSolutions = sequelize.define('recievedSolutions', {
 
 const Solutions = sequelize.define('solutions',{
     id :{
-        tpye : DataTypes.INTEGER,
+        type :DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true 
-    },
+  },
     solution :{
         type : DataTypes.STRING ,
         allowNull : false 
