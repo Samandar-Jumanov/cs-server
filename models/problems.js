@@ -6,7 +6,6 @@ const SharedProblems = sequelize.define('sharedProblems', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
     },
     problem: {
       type: DataTypes.STRING,
@@ -31,7 +30,8 @@ const SharedProblems = sequelize.define('sharedProblems', {
   });
 
 SharedProblems.belongsTo(Users, { foreignKey: 'userId' });
-SharedProblems.hasMany(Solutions, {foreignKey :'problemId'})
+SharedProblems.hasMany(Solutions, {foreignKey :'problemId' , as :'solutions'})
+
 module.exports = {
     SharedProblems
 

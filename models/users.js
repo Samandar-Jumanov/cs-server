@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 const { SharedProblems } = require('./problems');
-const { SentSolutions, RecievedSolutions } = require('./solutions');
+const { SentSolutions } = require('./sent-solutions');
+const {RecievedSolutions} = require('./recieved-solutions')
 
 const Users = sequelize.define('users', {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
     primaryKey: true,
   },
   username: {
