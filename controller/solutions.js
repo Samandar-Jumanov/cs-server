@@ -4,14 +4,17 @@ const {Solutions} = require('../models/solutions')
 const {SharedProblems} = require('../models/problems')
 
 const  giveSolutions = async (req, res, next) => {
-    const { userId, recieverUserId, solution, problemId } = req.body;
+    const { userId, problemCreator, solution, problemId } = req.body;
   
     let transaction;
   
     try {
       transaction = await sequelize.transaction();
       const senderUser = await Users.findByPk(userId);
-      const recieverUser = await Users.findByPk(recieverUserId);
+      const recieverUser = await Users.findOne( {
+        where : {problemCreator}
+      });
+
       const problem = await SharedProblems.findByPk(problemId);
   
       if (!senderUser || !recieverUser || !problem) {
