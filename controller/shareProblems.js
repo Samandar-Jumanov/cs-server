@@ -1,5 +1,5 @@
 const { response } = require('express')
-const {Users, SharedProblems}   = require('../models/models')
+const {Users, SharedProblems}   = require('../models/users')
 const sequelize = require("../utils/db")
 
 
