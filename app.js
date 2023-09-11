@@ -2,7 +2,7 @@ const express = require('express')
 const sequelize = require('./utils/db')
 const {usersRouter} = require('./routes/users')
 const { problemRouter } = require('./routes/problems')
-// const solutionRouter = require('./routes/solutions')
+const solutionRouter = require('./routes/solutions')
 const cors = require('cors')
 const app = express()
 
