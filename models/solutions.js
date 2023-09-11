@@ -31,7 +31,6 @@ const Solutions = sequelize.define('solutions',{
 })
 
 
-Solutions.belongsTo(SharedProblems);
 module.exports = {
    
     Solutions
