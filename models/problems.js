@@ -6,8 +6,9 @@ const {Users} = require('./users')
 const SharedProblems = sequelize.define('sharedProblems', {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
+      primaryKey: true 
     },
+    
     problem: {
       type: DataTypes.STRING,
       allowNull: false,
