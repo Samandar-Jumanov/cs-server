@@ -1,8 +1,10 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('postgres://samandarjumanov:R89pzY1ZLn7HFuuVWZ9lxnoXW1vadoDw@dpg-cjqsc38jbais738niub0-a/db_code_sender', {
-  dialect: 'postgres',
+const sequelize = new Sequelize('postgres://uxjgedwd:yj9IvXXQj7PuwMHOALuiocWsMdrzXNm5@rain.db.elephantsql.com/uxjgedwd',  {
+  
 });
+
+module.exports = sequelize;
 
 sequelize.authenticate()
   .then(() => {
