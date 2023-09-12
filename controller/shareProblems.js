@@ -43,7 +43,7 @@ const shareProblem = async (req, res, next) => {
     );
 
     await user.addSharedProblems(newProblem, { transaction });
-
+    await user.save()
     await transaction.commit();
 
     return res.json({
