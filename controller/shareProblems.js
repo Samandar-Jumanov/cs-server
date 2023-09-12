@@ -23,13 +23,7 @@ const shareProblem = async (req, res, next) => {
   try {
     transaction = await sequelize.transaction();
     // Create the new problem
-    const newProblem = await SharedProblems.create({
-      problem: problem,
-      problemCreator: problemCreator,
-      isSolved: isSolved,
-      code: code,
-      userId: userId
-    }, {transaction}) ;
+    
 
     // Find the user and associate the new problem
     const user = await Users.findByPk(userId);
@@ -38,7 +32,21 @@ const shareProblem = async (req, res, next) => {
         message: "User not found"
       });
     }
-    await user.addSharedProblems(newProblem, {transaction}) ;
+    const newProblem =  await user.addSharedProblems({
+      problem: problem,
+      problemCreator: problemCreator,
+      isSolved: isSolved,
+      code: code,
+      userId: userId
+    } , {transaction}) ;
+    
+      await SharedProblems.create({
+        problem: problem,
+        problemCreator: problemCreator,
+        isSolved: isSolved,
+        code: code,
+        userId: userId
+      } , {transaction})
 
     return res.status(201).json({
       message: "Problem created and associated with the user",
