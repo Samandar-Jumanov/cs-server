@@ -3,7 +3,7 @@ const sequelize = require('../utils/db');
 const {Users} = require('./users')
 
 
-const SentSolutions = sequelize.define('sentSolutions', {
+const SentSolutions = sequelize.define('SentSolutions', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

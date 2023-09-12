@@ -3,7 +3,7 @@ const sequelize = require('../utils/db');
 const { Users } = require('./users');
 const { SharedProblems } = require('./problems');
 
-const RecievedSolutions = sequelize.define('recievedSolutions', {
+const RecievedSolutions = sequelize.define('RecievedSolutions', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
