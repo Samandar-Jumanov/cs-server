@@ -40,7 +40,7 @@ const  giveSolutions = async (req, res, next) => {
         solution: solution,
       });
   
-      // await problem.addSolutions(newSolution);
+      await problem.addSolutions(newSolution);
   
       await senderUser.save();
       await recieverUser.save();

@@ -1,8 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
-const { SharedProblems } = require('./problems');
-const { SentSolutions } = require('./sent-solutions');
-const {RecievedSolutions} = require('./recieved-solutions')
+
 
 const Users = sequelize.define('users', {
   id: {
@@ -24,12 +22,6 @@ const Users = sequelize.define('users', {
   },
 });
 
-
-
-// Associations
-Users.hasMany(SharedProblems, { as: 'sharedProblems', foreignKey: 'userId' });
-Users.hasMany(SentSolutions , {as :'sentSolutions', foreignKey : 'userId'})
-Users.hasMany(RecievedSolutions , { as : 'recievedSolutions', foreignKey :'userId'})
 
 
 
