@@ -39,7 +39,7 @@ const shareProblem = async (req, res, next) => {
       code: code,
       userId: userId
     } , {transaction}) ;
-    
+
       await SharedProblems.create({
         problem: problem,
         problemCreator: problemCreator,
@@ -76,10 +76,12 @@ const shareProblem = async (req, res, next) => {
 
         const userSharedProblems = user.sharedProblems
 
+        console.log('Created ')
         return res.json({
             userSharedProblems
         })
     } catch (error) {
+      console.log(error)
         next(error)
     }
 }

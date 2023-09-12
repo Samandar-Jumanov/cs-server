@@ -29,6 +29,5 @@ const SharedProblems = sequelize.define('sharedProblems', {
   }
 });
 
-SharedProblems.belongsTo(Users, { foreignKey: 'userId' });
 
 module.exports = {SharedProblems }
