@@ -48,11 +48,13 @@ const shareProblem = async (req, res, next) => {
         userId: userId
       } , {transaction})
 
+      console.log(`${newProblem} Created `)
     return res.status(201).json({
       message: "Problem created and associated with the user",
       newProblem: newProblem
     });
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };
@@ -81,7 +83,6 @@ const shareProblem = async (req, res, next) => {
             userSharedProblems
         })
     } catch (error) {
-      console.log(error)
         next(error)
     }
 }

@@ -23,8 +23,7 @@ const RecievedSolutions = sequelize.define('recievedSolutions', {
   }
 });
 
-Users.hasMany(RecievedSolutions , {foreignKey :'userId', as :'recievedSolutions'})
-RecievedSolutions.belongsTo(Users, { foreignKey: 'userId' });
+
 
 module.exports = {
   RecievedSolutions

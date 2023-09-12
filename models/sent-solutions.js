@@ -23,8 +23,7 @@ const SentSolutions = sequelize.define('sentSolutions', {
   }
 });
 
-Users.hasMany(SentSolutions , { foreignKey :'userId' , as :'sentSolutions'})
-SentSolutions.belongsTo(Users, { foreignKey: 'userId' });
+
 
 module.exports = {
   SentSolutions
