@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 
+
 const sequelize = new Sequelize('postgres://uxjgedwd:yj9IvXXQj7PuwMHOALuiocWsMdrzXNm5@rain.db.elephantsql.com/uxjgedwd',  {
   
 });
