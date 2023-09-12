@@ -32,21 +32,24 @@ const shareProblem = async (req, res, next) => {
         message: "User not found"
       });
     }
-    const newProblem =  await user.addSharedProblems({
+
+    await SharedProblems.create({
       problem: problem,
       problemCreator: problemCreator,
       isSolved: isSolved,
       code: code,
       userId: userId
-    } , {transaction}) ;
+    } , {transaction})
+    
+    // const newProblem =  await user.addSharedProblems({
+    //   problem: problem,
+    //   problemCreator: problemCreator,
+    //   isSolved: isSolved,
+    //   code: code,
+    //   userId: userId
+    // } , {transaction}) ;
 
-      await SharedProblems.create({
-        problem: problem,
-        problemCreator: problemCreator,
-        isSolved: isSolved,
-        code: code,
-        userId: userId
-      } , {transaction})
+     
 
       console.log(`${newProblem} Created `)
     return res.status(201).json({
