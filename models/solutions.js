@@ -34,8 +34,8 @@ const Solutions = sequelize.define('solutions', {
   }
 });
 
-// SharedProblems.hasMany(Solutions, { foreignKey: 'problemId'  ,  as :'solutions'});
-// Solutions.belongsTo(SharedProblems, { foreignKey: 'problemId' });
+SharedProblems.hasMany(Solutions, { foreignKey: 'problemId'  ,  as :'solutions'});
+Solutions.belongsTo(SharedProblems, { foreignKey: 'problemId' });
 
 module.exports = {
   Solutions
