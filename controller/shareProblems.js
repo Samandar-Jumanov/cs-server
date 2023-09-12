@@ -1,6 +1,6 @@
-const { response } = require('express')
-const {Users, SharedProblems}   = require('../models/users')
+const {Users}   = require('../models/users')
 const sequelize = require("../utils/db")
+const {SharedProblems} = require('../models/problems')
 
 
 
