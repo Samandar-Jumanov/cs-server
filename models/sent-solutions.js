@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
-
+const {Users} = require('../models/users')
 
 const SentSolutions = sequelize.define('sentSolutions', {
   id: {
@@ -26,7 +26,8 @@ const SentSolutions = sequelize.define('sentSolutions', {
   }
 });
 
-
+SentSolutions.belongsTo(Users);
+Users.hasMany(SentSolutions)
 
 module.exports = {
   SentSolutions

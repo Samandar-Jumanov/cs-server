@@ -1,5 +1,7 @@
 const sequelize = require("../utils/db");
-const {Users , SharedProblems, Solutions} = require('../models2/models')
+const {Users } = require('../models/users')
+const {SharedProblems} = require('../models/problems')
+const {Solutions} = require('../models/solutions')
 const  giveSolutions = async (req, res, next) => {
     const { userId, problemCreator, solution, problemId } = req.body;
   

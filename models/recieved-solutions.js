@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
+const {Users} = require('../models/users')
 
 
 const RecievedSolutions = sequelize.define('recievedSolutions', {
@@ -25,6 +26,8 @@ const RecievedSolutions = sequelize.define('recievedSolutions', {
     allowNull : false 
   }
 });
+RecievedSolutions.belongsTo(Users);
+Users.hasMany(RecievedSolutions)
 
 
 

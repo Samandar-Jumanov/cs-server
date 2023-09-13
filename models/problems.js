@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
+const {Users} = require('../models/users')
 
 const SharedProblems = sequelize.define('sharedProblems', {
   id: {
@@ -28,5 +29,8 @@ const SharedProblems = sequelize.define('sharedProblems', {
   }
 });
 
+
+SharedProblems.belongsTo(Users)
+Users.hasMany(SharedProblems);
 
 module.exports = {SharedProblems }
