@@ -26,8 +26,8 @@ const RecievedSolutions = sequelize.define('recievedSolutions', {
     allowNull : false 
   }
 });
-RecievedSolutions.belongsTo(Users);
-Users.hasMany(RecievedSolutions)
+// RecievedSolutions.belongsTo(Users);
+// Users.hasMany(RecievedSolutions)
 
 
 

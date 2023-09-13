@@ -32,7 +32,7 @@ const shareProblem = async (req, res, next) => {
       });
     }
 
-    await SharedProblems.create({
+    const newProblem =  await SharedProblems.create({
       problem: problem,
       problemCreator: problemCreator,
       isSolved: isSolved,
@@ -40,14 +40,9 @@ const shareProblem = async (req, res, next) => {
       userId: userId
     } , {transaction})
     
-    // const newProblem =  await user.addSharedProblems({
-    //   problem: problem,
-    //   problemCreator: problemCreator,
-    //   isSolved: isSolved,
-    //   code: code,
-    //   userId: userId
-    // } , {transaction}) ;
 
+    await user.addSharedProblems(newProblem)
+      
      
 
       console.log(`${newProblem} Created `)

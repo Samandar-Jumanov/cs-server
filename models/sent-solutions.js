@@ -26,8 +26,8 @@ const SentSolutions = sequelize.define('sentSolutions', {
   }
 });
 
-SentSolutions.belongsTo(Users);
-Users.hasMany(SentSolutions)
+// SentSolutions.belongsTo(Users);
+// Users.hasMany(SentSolutions)
 
 module.exports = {
   SentSolutions
