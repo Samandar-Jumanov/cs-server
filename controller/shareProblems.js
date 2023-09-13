@@ -1,8 +1,5 @@
-const {Users}   = require('../models/users')
 const sequelize = require("../utils/db")
-const {SharedProblems} = require('../models/problems')
-
-
+const {SharedProblems , Users } = require('../models2/models')
 
 const getAllProblems = async (request , res , next ) =>{
     try {
