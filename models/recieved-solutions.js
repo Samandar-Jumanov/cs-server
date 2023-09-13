@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
-const { Users } = require('./users');
-const { SharedProblems } = require('./problems');
+
 
 const RecievedSolutions = sequelize.define('recievedSolutions', {
   id: {
@@ -20,6 +19,10 @@ const RecievedSolutions = sequelize.define('recievedSolutions', {
   problem: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  problemId :{
+    type : DataTypes.INTEGER ,
+    allowNull : false 
   }
 });
 

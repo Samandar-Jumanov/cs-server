@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
-const {Users} = require('./users')
 
 
 const SentSolutions = sequelize.define('sentSolutions', {
@@ -20,6 +19,10 @@ const SentSolutions = sequelize.define('sentSolutions', {
   problem: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  problemId :{
+    type : DataTypes.INTEGER ,
+    allowNull : false 
   }
 });
 
