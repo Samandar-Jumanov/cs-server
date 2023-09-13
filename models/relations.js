@@ -15,6 +15,8 @@ SentSolutions.belongsTo(Users, { foreignKey: 'userId' });
 Users.hasMany(RecievedSolutions , {foreignKey :'userId', as :'recievedSolutions'})
 RecievedSolutions.belongsTo(Users, { foreignKey: 'userId' });
 
-SharedProblems.hasMany(Solutions, { foreignKey: ['problemId' , 'userId']  ,  as :'solutions'});
-Solutions.belongsTo(SharedProblems, { foreignKey: ['problemId' , 'userId'] });
+SharedProblems.hasMany(Solutions, { foreignKey :'problemId',  as :'solutions'});
+Solutions.belongsTo(SharedProblems, { foreignKey: 'problemId'  });
+
+
 
