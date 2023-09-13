@@ -1,83 +1,72 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const {Users} = require('../models/users')
-
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 require('dotenv').config()
 
-const Signup = async (req , res , next) =>{
-    const {username , password } = req.body 
 
+
+const Signup = async (request , response , next ) =>{
+    const {username , password } = request.body 
     try {
-        
-        const existingUser = await Users.findOne({
-             where : {username}
-        })
 
-        if(existingUser){
-            return res.json({message :'User has already account'})
+        const user = await Users.findOne({
+            where : {username}
+        })
+        
+        if(user){
+            return response.json('User not found ')
         }
 
-        const hashedPassword =   await bcrypt.hash(password , 10)
+        const hashedPassword = await bcrypt.hash(password , 10)
 
         const newUser = await Users.create({
-            username : username , 
-            password : hashedPassword ,
-            token :'null'
+            username : username ,
+            password : hashedPassword,
+            token : process.env.SECRETKEY
         })
 
-        const token = jwt.sign({userid : newUser.id },  process.env.SECRETKEY)
-        newUser.token = await token
-        await newUser.save()
-
-        return  res.json({
-            token ,
-            message :'Created',
-            newUser
-        })
-
-    } catch (error) {
-        next(error)
+        const token = await jwt.sign({userId : newUser.id}, process.env.SECRETKEY)
+         user.token = token
+        await user.save()
+        } catch (error) {
+            next(error)
         
     }
-
-    
 }
 
 
-const Login = async (req, res , next ) =>{
-    const {username , password } = req.body 
+const Login = async (request , response , next ) =>{
+    const {username , password } = request.body 
+
 
     try {
-        const existingUser = await Users.findOne({
-             where : {username}
+
+        const user = await Users.findOne({
+            where : {username}
         })
-
-        if(!existingUser){
-            return res.json({
-                message :'User not found '
-            })
-        }
-    
-        const isValidPassword = await bcrypt.compare(password , existingUser.password)
-
-        if(!isValidPassword){
-            return res.json({
-                message :'Invalid password '
-            })
+        
+        if(!user){
+            return response.json(
+            'User not found'
+            )
         }
 
-        const  token = jwt.sign({userId : existingUser.id }, process.env.SECRETKEY)
-        existingUser.token = token 
-        await  existingUser.save()
-        res.json({
-            message :'Logged in ',
-            existingUser
-        })
+        const isTruePassword = await bcrypt.compare(password , user.password)
+
+        if(isTruePassword){
+            return response.json('Invalid password ')
+        }
+        const newToken = await jwt.sign({userId : user.id}, process.env.SECRETKEY)
+        user.token = await newToken
+        await user.save()
     } catch (error) {
-        next(error)
+            next(error)        
     }
 }
 
 
 
-module.exports = {Signup , Login}
+module.exports ={
+    Signup,
+    Login 
+}
