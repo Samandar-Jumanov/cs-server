@@ -5,7 +5,7 @@ const sequelize = require('./utils/db')
 const app = express()
 
 
-app.use(express.json())g
+app.use(express.json())
 
 // Enable CORS with specific options
 app.use(

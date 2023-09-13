@@ -24,6 +24,13 @@ const Users = sequelize.define('users', {
 
 
 
+sequelize.sync().then(()=>{
+  console.log('DB is working ')
+}).catch((error)=>{
+  console.log(error)
+})
+
+
 module.exports = {
   Users,
 };
