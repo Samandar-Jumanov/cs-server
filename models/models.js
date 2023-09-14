@@ -50,8 +50,65 @@ const ShareProblems = sequelize.define('problems', {
 })
 
 
-ShareProblems.belongsTo(Users , { foreignKey : 'userId'})
-Users.hasMany(ShareProblems , { foreignKey :'userId', as :'problems'})
+const Solutions = sequelize.define('solutions', {
+  id : {
+    type : DataTypes.INTEGER,
+    autoIncrement: true , 
+    primaryKey : true 
+  },
+  problemId : {
+    type : DataTypes.INTEGER,
+    allowNull : false 
+  },
+  solution : {
+    type : DataTypes.STRING ,
+    allowNull : false 
+  },
+  solverId : {
+    type : DataTypes.INTEGER,
+    allowNull : false 
+  },
+})
+
+
+Users.hasMany(ShareProblems, {
+  foreignKey: 'userId',
+  as: 'problems'
+});
+
+ShareProblems.belongsTo(Users, {
+  foreignKey: 'userId'
+});
+
+ShareProblems.hasMany(Solutions, {
+  foreignKey: 'problemId',
+  as: 'solutions'
+});
+
+Solutions.belongsTo(ShareProblems, {
+  foreignKey: 'problemId'
+});
+
+Users.hasMany(ShareProblems, {
+  foreignKey: 'userId',
+  as: 'problems'
+});
+
+ShareProblems.belongsTo(Users, {
+  foreignKey: 'userId'
+});
+
+ShareProblems.hasMany(Solutions, {
+  foreignKey: 'problemId',
+  as: 'solutions'
+});
+
+Solutions.belongsTo(ShareProblems, {
+  foreignKey: 'problemId'
+});
+
+
+
 
 
 sequelize.sync().then(()=>{
@@ -63,5 +120,6 @@ sequelize.sync().then(()=>{
 
 module.exports = {
   Users,
-  ShareProblems
+  ShareProblems,
+  Solutions
 };

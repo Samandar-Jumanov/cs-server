@@ -17,37 +17,35 @@ const getAllProblems = async (request , response , next ) =>{
 
 
 const shareProblem = async (request , response , next ) =>{
-    const {userId , problem  , code} = request.body 
 
-    // let transaction;
     try {
-        // transaction = await sequelize.transaction()
-        // const user = await Users.findByPk(userId)
-        // if(!user){
-        //     return response.json('User not found')
-        // }
-
-        const newProblem = await ShareProblems.create({
-            userId : userId,
-            problem : problem,
-            isSolved : false ,
-            code : code  
-    })
-
-    //    await user.addProblems(newProblem)
-    //    console.log(user.problems)
-    //    await user.save()
-    //    await transaction.commit()
-
-        return response.json({message :"Creating succeded", newProblem : newProblem})
-    } catch (error) {
-        // await transaction.rollback();
-        next(error)
-        
+        const { problem, code, userId } = request.body;
+    
+        const t = await sequelize.transaction();
+    
+        try {
+          const newProblem = await ShareProblems.create({ problem, code, userId }, { transaction: t });
+    
+          const user = await Users.findByPk(userId, { transaction: t });
+          if (!user) {
+            throw new Error('User not found');
+          }
+          await newProblem.setUser(user, { transaction: t });
+    
+          await t.commit();
+    
+          response.json(newProblem);
+        } catch (error) {
+          await t.rollback();
+          throw error;
+        }
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
     }
-}
 
 module.exports ={
-    shareProblem,
-    getAllProblems
+    getAllProblems, 
+    shareProblem
 }
