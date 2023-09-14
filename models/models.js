@@ -32,10 +32,7 @@ const ShareProblems = sequelize.define('problems', {
     allowNull: false,
     unique: true,
   },
-  code: {
-    type: DataTypes.STRING, // Make sure the data type is correct
-    allowNull: false,
-  },
+ 
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -71,7 +68,7 @@ const Solutions = sequelize.define('solutions', {
 
 Users.hasMany(ShareProblems, {
   foreignKey: 'userId',
-  as: 'problems'
+  as: 'problems',
 });
 
 ShareProblems.belongsTo(Users, {
