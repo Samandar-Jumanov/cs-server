@@ -31,7 +31,7 @@ const shareProblem = async (request , response , next ) =>{
         }
         
         const existingProblem = await ShareProblems.findOne({
-            where : {problem}
+            where : {problem : problem }
         })
         
         if(existingProblem){
