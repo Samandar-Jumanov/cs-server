@@ -11,25 +11,26 @@ const giveSolution = async (request , response , next ) =>{
 
         let t;
         try {
-            t = await sequelize.transaction();
-            const problem = await ShareProblems.findByPk(problemId, {transaction :t })
+            // t = await sequelize.transaction();
+            // const problem = await ShareProblems.findByPk(problemId, {transaction :t })
+
             const newSolution = await Solutions.create({
                 solution : solution,
                 problemId : problemId ,
                 solverId : solverId 
-            } , {transaction : t })
+            } )
 
 
-            await problem.addSolutions(newSolution, {transaction : t }) 
+            // await problem.addSolutions(newSolution, {transaction : t }) 
 
-            await  t.commit()
+            // await  t.commit()
             response.json({
                 message :'Solution posted ',
                 newSolution : newSolution
             })
             
         } catch (error) {
-            await t.rollback()
+            // await t.rollback()
             next(error)
             
         }
