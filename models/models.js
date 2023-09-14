@@ -81,14 +81,6 @@ ShareProblems.belongsTo(Users, {
 });
 
 
-Users.hasMany(ShareProblems, {
-  foreignKey: 'userId',
-  as: 'problems'
-});
-
-ShareProblems.belongsTo(Users, {
-  foreignKey: 'userId'
-});
 
 ShareProblems.hasMany(Solutions, {
   foreignKey: 'problemId',
