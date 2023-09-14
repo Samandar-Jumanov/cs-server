@@ -21,16 +21,11 @@ const shareProblem = async (request , response , next ) =>{
 
     // let transaction;
     try {
-
         // transaction = await sequelize.transaction()
-        
-        const user = await Users.findByPk(userId)
-
-        if(!user){
-            return response.json('User not found')
-        }
-        
-       
+        // const user = await Users.findByPk(userId)
+        // if(!user){
+        //     return response.json('User not found')
+        // }
 
         const newProblem = await ShareProblems.create({
             userId : userId,
@@ -39,14 +34,12 @@ const shareProblem = async (request , response , next ) =>{
             code : code  
     })
 
-
-       await user.addProblems(newProblem)
-       console.log(user.problems)
-       await user.save()
+    //    await user.addProblems(newProblem)
+    //    console.log(user.problems)
+    //    await user.save()
     //    await transaction.commit()
 
         return response.json({message :"Creating succeded", newProblem : newProblem})
-        
     } catch (error) {
         // await transaction.rollback();
         next(error)
