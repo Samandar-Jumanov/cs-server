@@ -1,4 +1,4 @@
-const {Users} = require('../models/models')
+const {Users, ShareProblems} = require('../models/models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
@@ -73,7 +73,28 @@ const Login = async (request , response , next ) =>{
 
 
 
+const getUserAllProblems = async (request , response , next ) =>{
+    const {userId} = request.params 
+    try {
+        
+        const user = await Users.findByPk(userId , {
+            include : [
+                {model : ShareProblems , as :'problems'}
+            ]
+        })
+
+        const userSharedProblems = user.problems 
+        return response.json({
+            userSharedProblems : userSharedProblems
+        })
+    } catch (error) {
+        next(error)
+        
+    }
+}
+
 module.exports ={
     Signup,
-    Login 
+    Login ,
+    getUserAllProblems
 }
