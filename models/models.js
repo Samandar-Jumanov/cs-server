@@ -63,10 +63,8 @@ const Solutions = sequelize.define('solutions', {
     type : DataTypes.INTEGER,
     allowNull : false 
   },
-
- 
-
 })
+
 
 
 Users.hasMany(ShareProblems, {
