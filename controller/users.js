@@ -26,9 +26,11 @@ const Signup = async (request , response , next ) =>{
         })
 
         const token = await jwt.sign({userId : newUser.id}, process.env.SECRETKEY)
-         user.token = token
+        user.token = token
         await user.save()
-        return response.json(user)
+        return response.json({
+            user : user
+        })
         } catch (error) {
             next(error)
         
@@ -60,7 +62,9 @@ const Login = async (request , response , next ) =>{
         const newToken = await jwt.sign({userId : user.id}, process.env.SECRETKEY)
         user.token = await newToken
         await user.save()
-        return response.json(user)
+        return response.json({
+            user : user 
+        })
 
     } catch (error) {
             next(error)        
