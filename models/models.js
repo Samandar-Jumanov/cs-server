@@ -58,4 +58,5 @@ sequelize.sync().then(()=>{
 
 module.exports = {
   Users,
+  ShareProblems
 };
