@@ -22,6 +22,31 @@ const Users = sequelize.define('users', {
 });
 
 
+const ShareProblems = sequelize.define('problems', {
+  id :{
+      type : DataTypes.INTEGER,
+      autoIncrement : true ,
+      primaryKey : true 
+  },
+  problem :{
+      type : DataTypes.STRING ,
+      allowNull : false ,
+      unique : true 
+  },
+  userId : {
+      type : DataTypes.INTEGER ,
+      allowNull : false 
+  },
+  isSolved : {
+      type : DataTypes.BOOLEAN ,
+      allowNull : false,
+      defaultValue : false 
+  }
+})
+
+
+ShareProblems.belongsTo(Users , { foreignKey : 'userId'})
+Users.hasMany(ShareProblems , { foreignKey :'userId', as :'problems'})
 
 
 sequelize.sync().then(()=>{
