@@ -3,7 +3,7 @@ const sequelize = require('../utils/db');
 
 
 const shareProblem = async (request , response , next ) =>{
-    const {userId , problem } = request.body 
+    const {userId , problem  , code} = request.body 
 
     let transaction;
     try {
@@ -27,13 +27,14 @@ const shareProblem = async (request , response , next ) =>{
         const newProblem = await ShareProblems.create({
             userId : userId,
             problem : problem,
-            isSolved : false 
+            isSolved : false ,
+            code : code 
         })
 
 
        await user.addProblems(newProblem)
        await user.save()
-       
+
 
 
         return response.json({message :"Creating succeded", newProblem : newProblem})
