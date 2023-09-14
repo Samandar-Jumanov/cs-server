@@ -21,33 +21,31 @@ const Users = sequelize.define('users', {
   },
 });
 
-
 const ShareProblems = sequelize.define('problems', {
-  id :{
-      type : DataTypes.INTEGER,
-      autoIncrement : true ,
-      primaryKey : true 
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
-  problem :{
-      type : DataTypes.STRING ,
-      allowNull : false ,
-      unique : true 
+  problem: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
   },
-  code :{
-    type : DataTypes.STRING,
-    allowNull : false 
+  code: {
+    type: DataTypes.STRING, // Make sure the data type is correct
+    allowNull: false,
   },
-  
-  userId : {
-      type : DataTypes.INTEGER ,
-      allowNull : false 
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
-  isSolved : {
-      type : DataTypes.BOOLEAN ,
-      allowNull : false,
-      defaultValue : false 
-  }
-})
+  isSolved: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+});
 
 
 const Solutions = sequelize.define('solutions', {
@@ -90,8 +88,6 @@ ShareProblems.hasMany(Solutions, {
 Solutions.belongsTo(ShareProblems, {
   foreignKey: 'problemId'
 });
-
-
 
 
 
