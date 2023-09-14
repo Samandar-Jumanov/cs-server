@@ -36,7 +36,7 @@ const ShareProblems = sequelize.define('problems', {
     type : DataTypes.STRING ,
     allowNull : false 
   },
-  
+
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -67,6 +67,12 @@ const Solutions = sequelize.define('solutions', {
     type : DataTypes.INTEGER,
     allowNull : false 
   },
+
+  sharedCode :{
+    type : DataTypes.STRING ,
+    allowNull : false 
+  },
+  
 })
 
 
