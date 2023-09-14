@@ -19,10 +19,10 @@ const getAllProblems = async (request , response , next ) =>{
 const shareProblem = async (request , response , next ) =>{
     const {userId , problem  , code} = request.body 
 
-    let transaction;
+    // let transaction;
     try {
 
-        transaction = await sequelize.transaction()
+        // transaction = await sequelize.transaction()
         
         const user = await Users.findByPk(userId)
 
@@ -37,18 +37,18 @@ const shareProblem = async (request , response , next ) =>{
             problem : problem,
             isSolved : false ,
             code : code  
-        }, {transaction})
+    })
 
 
-       await user.addProblems(newProblem , {transaction})
+       await user.addProblems(newProblem)
        console.log(user.problems)
        await user.save()
-       await transaction.commit()
+    //    await transaction.commit()
 
         return response.json({message :"Creating succeded", newProblem : newProblem})
         
     } catch (error) {
-        await transaction.rollback();
+        // await transaction.rollback();
         next(error)
         
     }
