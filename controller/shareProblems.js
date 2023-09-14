@@ -14,12 +14,18 @@ const getAllProblems = async (request, response, next) => {
 
 const shareProblem = async (request, response, next) => {
   try {
-    const { problem, userId } = request.body;
+    const { problem, userId , sharedCode  } = request.body;
 
     const t = await sequelize.transaction();
 
     try {
-      const newProblem = await ShareProblems.create({ problem, userId }, { transaction: t });
+      const newProblem = await ShareProblems.create(
+        { problem  : problem, 
+            userId : userId  , 
+            sharedCode  : sharedCode },
+         { transaction: t });
+
+         
 
       const user = await Users.findByPk(userId, { transaction: t });
       if (!user) {
