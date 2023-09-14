@@ -30,13 +30,7 @@ const shareProblem = async (request , response , next ) =>{
             return response.json('User not found')
         }
         
-        const existingProblem = await ShareProblems.findOne({
-            where : {problem : problem }
-        })
-        
-        if(existingProblem){
-            return response.json('Problem is already there ')
-        }
+       
 
         const newProblem = await ShareProblems.create({
             userId : userId,
