@@ -6,7 +6,7 @@ const sequelize = require('../utils/db');
 const giveSolution = async (request , response , next ) =>{
     try {
 
-        const {solution , problemId , solverId } = request.body
+        const {solution , problemId , solverId  , solverName } = request.body
 
 
         let t;
@@ -17,7 +17,8 @@ const giveSolution = async (request , response , next ) =>{
             const newSolution = await Solutions.create({
                 solution : solution,
                 problemId : problemId ,
-                solverId : solverId 
+                solverId : solverId ,
+                solverName : solverName 
             } )
 
 

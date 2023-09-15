@@ -54,6 +54,10 @@ const Solutions = sequelize.define('solutions', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  solverName :{
+    type : DataTypes.STRING ,
+    allowNull : false 
+  }
 });
 
 Users.hasMany(ShareProblems, {
