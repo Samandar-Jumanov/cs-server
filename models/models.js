@@ -62,10 +62,6 @@ const Solutions = sequelize.define('solutions', {
     type : DataTypes.BOOLEAN,
     allowNull : false ,
   },
-  problem :  {
-    type : DataTypes.STRING ,
-    allowNull : false 
-  }
 });
 
 Users.hasMany(ShareProblems, {
