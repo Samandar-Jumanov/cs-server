@@ -1,7 +1,6 @@
 const {Users, ShareProblems} = require('../models/models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const sequelize = require('../utils/db')
 require('dotenv').config()
 
 
@@ -11,7 +10,6 @@ const Signup = async (request , response , next ) =>{
     try {
         const {username , password } = request.body 
 
-        t =  await sequelize.transaction();
         const user = await Users.findOne({
             where : {username}
         } )
@@ -37,14 +35,11 @@ const Signup = async (request , response , next ) =>{
         return response.json({
             user : newUser
         })
-
-
         } catch (error) {
-            await t.rollback()
             next(error)
-        
     }
 }
+
 
 
 const Login = async (request , response , next ) =>{
