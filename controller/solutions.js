@@ -3,6 +3,24 @@ const sequelize = require('../utils/db');
 
 
 
+
+const getAllSolutions = async (request , response ,  next ) =>{
+    try {
+        const allSolution =Solutions.findAll()
+        response.json({
+            allSolution : allSolution
+        })
+        
+    } catch (error) {
+        next(error)
+        
+    }
+}
+
+
+
+
+
 const giveSolution = async (request , response , next ) =>{
     try {
 
@@ -50,5 +68,6 @@ const giveSolution = async (request , response , next ) =>{
 }
 
 module.exports = {
-    giveSolution
+    giveSolution,
+    getAllSolutions
 }
