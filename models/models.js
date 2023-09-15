@@ -60,7 +60,7 @@ const Solutions = sequelize.define('solutions', {
   },
   isTrue :{
     type : DataTypes.BOOLEAN,
-    allowNull : false 
+    allowNull : false ,
   }
 });
 
