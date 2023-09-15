@@ -57,6 +57,10 @@ const Solutions = sequelize.define('solutions', {
   solverName :{
     type : DataTypes.STRING ,
     allowNull : false 
+  },
+  isTrue :{
+    type : DataTypes.BOOLEAN,
+    allowNull : false 
   }
 });
 
