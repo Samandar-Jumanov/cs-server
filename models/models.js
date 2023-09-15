@@ -5,6 +5,7 @@ const Users = sequelize.define('users', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    autoIncrement: true,
   },
   username: {
     type: DataTypes.STRING,
@@ -24,18 +25,13 @@ const Users = sequelize.define('users', {
 const ShareProblems = sequelize.define('problems', {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
     primaryKey: true,
+    autoIncrement: true,
   },
   problem: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-  },
-  
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
   },
   isSolved: {
     type: DataTypes.BOOLEAN,
@@ -44,28 +40,21 @@ const ShareProblems = sequelize.define('problems', {
   },
 });
 
-
 const Solutions = sequelize.define('solutions', {
-  id : {
-    type : DataTypes.INTEGER,
-    autoIncrement: true , 
-    primaryKey : true 
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  problemId : {
-    type : DataTypes.INTEGER,
-    allowNull : false 
+  solution: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  solution : {
-    type : DataTypes.STRING ,
-    allowNull : false 
+  solverId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
-  solverId : {
-    type : DataTypes.INTEGER,
-    allowNull : false 
-  },
-})
-
-
+});
 
 Users.hasMany(ShareProblems, {
   foreignKey: 'userId',
@@ -73,31 +62,30 @@ Users.hasMany(ShareProblems, {
 });
 
 ShareProblems.belongsTo(Users, {
-  foreignKey: 'userId'
+  foreignKey: 'userId',
 });
-
-
 
 ShareProblems.hasMany(Solutions, {
   foreignKey: 'problemId',
-  as: 'solutions'
+  as: 'solutions',
 });
 
 Solutions.belongsTo(ShareProblems, {
-  foreignKey: 'problemId'
+  foreignKey: 'problemId',
 });
 
-
-
-sequelize.sync().then(()=>{
-  console.log('DB is working ')
-}).catch((error)=>{
-  console.log(error)
-})
-
+sequelize
+  .sync()
+  .then(() => {
+    console.log('DB is working');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+  
 
 module.exports = {
   Users,
   ShareProblems,
-  Solutions
+  Solutions,
 };

@@ -8,14 +8,13 @@ require('dotenv').config()
 
 const Signup = async (request , response , next ) =>{
    
-    let t;
     try {
         const {username , password } = request.body 
 
         t =  await sequelize.transaction();
         const user = await Users.findOne({
             where : {username}
-        } , {transaction : t })
+        } )
         
         if(user){
             return response.json('User not found ')
@@ -27,14 +26,13 @@ const Signup = async (request , response , next ) =>{
             username : username ,
             password : hashedPassword,
             token : process.env.SECRETKEY
-        } , {transaction : t} )
+        } )
         
        
 
         const token = await jwt.sign({userId : newUser.id}, process.env.SECRETKEY)
         newUser.token = token
         await newUser.save()
-        await t.commit();
 
         return response.json({
             user : newUser
