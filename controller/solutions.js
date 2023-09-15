@@ -19,7 +19,8 @@ const giveSolution = async (request , response , next ) =>{
                 problemId : problemId ,
                 solverId : solverId ,
                 solverName : solverName ,
-                isTrue : false 
+                isTrue : false ,
+                problem : problem.problem
             } )
 
 
