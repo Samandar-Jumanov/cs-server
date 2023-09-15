@@ -1,4 +1,4 @@
-const {ShareProblems , Solutions } = require('../models/models');
+const {ShareProblems , SharedSolutions } = require('../models/models');
 const sequelize = require('../utils/db');
 
 
@@ -6,7 +6,7 @@ const sequelize = require('../utils/db');
 
 const getAllSolutions = async (request , response ,  next ) =>{
     try {
-        const allSolution =Solutions.findAll()
+        const allSolution =SharedSolutions.findAll()
         response.json({
             allSolution : allSolution
         })
@@ -32,7 +32,7 @@ const giveSolution = async (request , response , next ) =>{
             t = await sequelize.transaction();
             const problem = await ShareProblems.findByPk(problemId, {transaction :t })
 
-            const newSolution = await Solutions.create({
+            const newSolution = await SharedSolutions.create({
                 solution : solution,
                 problemId : problemId ,
                 solverId : solverId ,
