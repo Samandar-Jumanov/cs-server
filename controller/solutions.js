@@ -25,6 +25,8 @@ const giveSolution = async (request , response , next ) =>{
         try {
             t = await sequelize.transaction();
             const problem = await SharedCode.findByPk(problemId, {transaction :t })
+            const user = await DbUsers.findByPk(userId  , {transaction : t })
+            
             const newSolution = await ProblemSolutions.create({
                 solution : solution,
                 problemId : problemId ,
@@ -33,10 +35,10 @@ const giveSolution = async (request , response , next ) =>{
                 userId : userId
             } )
 
-            const user = await DbUsers.findByPk(userId )
             await problem.addSolutions(newSolution, {transaction : t }) 
-             await problem.save()
             await user.addSolutions(newSolution, { transaction : t })
+            await problem.save()
+            await user.save()
 
             await  t.commit()
             response.json({
@@ -64,7 +66,7 @@ const getUserSolutions = async (request , response , next ) =>{
 
     try {
 
-        const user = await DbUsers.findByPk(userId , {
+        const user = await DbUsers.findByPk(userId ,{
             include :[
                 {model : ProblemSolutions , as :'solutions'}
             ]
@@ -75,7 +77,7 @@ const getUserSolutions = async (request , response , next ) =>{
         // const allUserSolutions = user.solutions 
 
         console.log(user)
-        
+
         return response.json({
             allUserSolutions : user
             
