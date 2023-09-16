@@ -52,21 +52,24 @@ const Login = async (request , response , next ) =>{
         })
         
         if(!user){
-            return response.json(
-            'User not found'
-            )
+            return response.json({
+                message :'User not  found  '
+            })
         }
 
         const isTruePassword = await bcrypt.compare(password , user.password)
 
         if(isTruePassword){
-            return response.json('Invalid password ')
+            return response.json({
+                message :'Invalid password '
+            })
         }
         const newToken = await jwt.sign({userId : user.id}, process.env.SECRETKEY)
-        user.token = await newToken
+        user.token =  newToken
         await user.save()
         return response.json({
-            user : user 
+            user : user ,
+            message :'Logged in succesfully'
         })
 
     } catch (error) {

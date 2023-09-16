@@ -1,9 +1,6 @@
 const {ShareProblems , SharedSolutions, Users } = require('../models/models');
 const sequelize = require('../utils/db');
 
-
-
-
 const getAllSolutions = async (request , response ,  next ) =>{
     try {
         const allSolution =SharedSolutions.findAll()
@@ -16,8 +13,6 @@ const getAllSolutions = async (request , response ,  next ) =>{
         
     }
 }
-
-
 
 const giveSolution = async (request , response , next ) =>{
     try {
@@ -35,6 +30,8 @@ const giveSolution = async (request , response , next ) =>{
                 isTrue : false ,
             } )
             await problem.addSolutions(newSolution, {transaction : t }) 
+             await problem.save()
+
             await  t.commit()
             response.json({
                 message :'Solution posted ',
