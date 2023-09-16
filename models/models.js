@@ -22,7 +22,7 @@ const DbUsers = sequelize.define('dbUsers', {
   },
 });
 
-const ShareProblems = sequelize.define('problems', {
+const SharedCode = sequelize.define('sharedCode', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -68,21 +68,21 @@ const SharedSolutions = sequelize.define('sharedSolutions', {
   },
 });
 
-DbUsers.hasMany(ShareProblems, {
+DbUsers.hasMany(SharedCode, {
   foreignKey: 'userId',
   as: 'problems',
 });
 
-ShareProblems.belongsTo(DbUsers, {
+SharedCode.belongsTo(DbUsers, {
   foreignKey: 'userId',
 });
 
-ShareProblems.hasMany(SharedSolutions, {
+SharedCode.hasMany(SharedSolutions, {
   foreignKey: 'problemId',
   as: 'solutions',
 });
 
-SharedSolutions.belongsTo(ShareProblems, {
+SharedSolutions.belongsTo(SharedCode, {
   foreignKey: 'problemId',
 });
 
@@ -97,6 +97,6 @@ sequelize
 
 module.exports = {
   DbUsers,
-  ShareProblems,
+  SharedCode,
   SharedSolutions,
 };
