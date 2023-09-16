@@ -89,9 +89,33 @@ const getUserSolutions = async (request , response , next ) =>{
     }
 }
 
+
+const getSpecificProblemSolutions = async (request , response , next ) =>{
+    const {problemId} = request.params
+
+    try {
+        const problem = await SharedCode.findByPk(problemId , {
+            include :[
+                {model :ProblemSolutions , as :'solutions'}
+            ]
+        })
+
+        const problemSolutions = problem.addSolutions
+        response.json(
+            problemSolutions
+        )
+
+        
+    } catch (error) {
+        nect(error)
+        
+    }
+}
+
 module.exports = {
     giveSolution,
     getAllSolutions,
-    getUserSolutions
+    getUserSolutions,
+    getSpecificProblemSolutions
 }
 
