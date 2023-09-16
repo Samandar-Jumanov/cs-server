@@ -4,6 +4,7 @@ const sequelize = require('../utils/db');
 const getAllSolutions = async (request , response ,  next ) =>{
     try {
         const allSolution = SharedSolutions.findAll()
+        
         response.json({
             allSolution : allSolution
         })
