@@ -29,10 +29,11 @@ const ShareProblems = sequelize.define('problems', {
     autoIncrement: true,
   },
   problem: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSONB,
     allowNull: false,
     unique: true,
   },
+
   isSolved: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
