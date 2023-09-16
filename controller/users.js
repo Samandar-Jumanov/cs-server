@@ -68,7 +68,7 @@ const Login = async (request , response , next ) =>{
         user.token =  newToken
         await user.save()
         return response.json({
-            user : user ,
+            loggedUser : user ,
             message :'Logged in succesfully'
         })
 
