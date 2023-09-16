@@ -74,6 +74,8 @@ const getUserSolutions = async (request , response , next ) =>{
 
         // const allUserSolutions = user.solutions 
 
+        console.log(user)
+        
         return response.json({
             allUserSolutions : user
             
