@@ -69,7 +69,7 @@ const getUserSolutions = async (request , response , next ) =>{
             ]
         })
         
-        if(!user)  return response.json({message :'User not found'})
+      
 
         const allUserSolutions = user.solutions 
         return response.json({
