@@ -32,7 +32,6 @@ const shareProblem = async (request, response, next) => {
       if (!user) {
         throw new Error('User not found');
       }
-      await newProblem.setUser(user, { transaction: t });
       await user.addProblems(newProblem)
       await user.save()
 
