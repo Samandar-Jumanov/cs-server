@@ -35,10 +35,6 @@ const giveSolution = async (request , response , next ) =>{
             const user = await DbUsers.findByPk(userId )
             await problem.addSolutions(newSolution, {transaction : t }) 
              await problem.save()
-
-             if(user){
-                return response.json({message :'User not found'})
-            }
             await user.addSolutions(newSolution, { transaction : t })
 
             await  t.commit()
