@@ -1,4 +1,4 @@
-const {Users, ShareProblems} = require('../models/models')
+const {DbUsers} = require('../models/models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
@@ -6,11 +6,9 @@ require('dotenv').config()
 
 
 const Signup = async (request , response , next ) =>{
-   
     try {
         const {username , password } = request.body 
-
-        const user = await Users.findOne({
+        const user = await DbUsers.findOne({
             where : {username}
         } )
         
@@ -20,7 +18,7 @@ const Signup = async (request , response , next ) =>{
 
         const hashedPassword = await bcrypt.hash(password , 10)
 
-        const newUser = await Users.create({
+        const newUser = await DbUsers.create({
             username : username ,
             password : hashedPassword,
             token : process.env.SECRETKEY
@@ -48,7 +46,7 @@ const Login = async (request , response , next ) =>{
 
     try {
 
-        const user = await Users.findOne({
+        const user = await DbUsers.findOne({
             where : {username}
         })
         
@@ -80,28 +78,9 @@ const Login = async (request , response , next ) =>{
 
 
 
-const getUserAllProblems = async (request , response , next ) =>{
-    const {userId} = request.params 
-    try {
-        
-        const user = await Users.findByPk(userId , {
-            include : [
-                {model : ShareProblems , as :'problems'}
-            ]
-        })
 
-        const userSharedProblems = user.problems 
-        return response.json({
-            userSharedProblems : userSharedProblems
-        })
-    } catch (error) {
-        next(error)
-        
-    }
-}
 
 module.exports ={
     Signup,
     Login ,
-    getUserAllProblems
 }

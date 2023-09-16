@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 
-const Users = sequelize.define('users', {
+const DbUsers = sequelize.define('dbUsers', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -65,12 +65,12 @@ const SharedSolutions = sequelize.define('sharedSolutions', {
   },
 });
 
-Users.hasMany(ShareProblems, {
+DbUsers.hasMany(ShareProblems, {
   foreignKey: 'userId',
   as: 'problems',
 });
 
-ShareProblems.belongsTo(Users, {
+ShareProblems.belongsTo(DbUsers, {
   foreignKey: 'userId',
 });
 
@@ -94,7 +94,7 @@ sequelize
   
 
 module.exports = {
-  Users,
+  DbUsers,
   ShareProblems,
   SharedSolutions,
 };

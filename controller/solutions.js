@@ -1,4 +1,4 @@
-const {ShareProblems , SharedSolutions, Users } = require('../models/models');
+const {ShareProblems , SharedSolutions, DbUsers } = require('../models/models');
 const sequelize = require('../utils/db');
 
 const getAllSolutions = async (request , response ,  next ) =>{
@@ -13,6 +13,8 @@ const getAllSolutions = async (request , response ,  next ) =>{
         
     }
 }
+
+
 
 const giveSolution = async (request , response , next ) =>{
     try {
@@ -57,7 +59,7 @@ const getUserSolutions = async (request , response , next ) =>{
 
     try {
 
-        const user = await Users.findByPk(userId , {
+        const user = await DbUsers.findByPk(userId , {
             include : [
                 {model : SharedSolutions , as : 'sharedSolutions'}
             ]
