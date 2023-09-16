@@ -93,7 +93,6 @@ ProblemSolutions.belongsTo(SharedCode, {
 DbUsers.hasMany(ProblemSolutions, {
   foreignKey :'userId',
   as :"solutions"
-
 })
 
 ProblemSolutions.belongsTo(DbUsers , {
