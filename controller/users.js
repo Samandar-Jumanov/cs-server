@@ -36,6 +36,7 @@ const Signup = async (request , response , next ) =>{
             user : newUser
         })
         } catch (error) {
+            console.log(error)
             next(error)
     }
 }
