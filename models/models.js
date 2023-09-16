@@ -33,11 +33,14 @@ const ShareProblems = sequelize.define('problems', {
     allowNull: false,
     unique: true,
   },
-
   isSolved: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false,
+  },
+  userId: { // Add this column for the foreign key
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
 });
 
@@ -55,13 +58,13 @@ const SharedSolutions = sequelize.define('sharedSolutions', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  solverName :{
-    type : DataTypes.STRING ,
-    allowNull : false 
+  solverName: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  isTrue :{
-    type : DataTypes.BOOLEAN,
-    allowNull : false ,
+  isTrue: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
   },
 });
 
@@ -91,7 +94,6 @@ sequelize
   .catch((error) => {
     console.log(error);
   });
-  
 
 module.exports = {
   DbUsers,
