@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 
 
-const sequelize = new Sequelize('postgres://vhtclsyo:JLXpLUPoshEy0TW89RTxssMqC89fF9Vm@rain.db.elephantsql.com/vhtclsyo',  {
+const sequelize = new Sequelize('postgres://lllbhryb:i03n6GJIUC1s8Srzxy2HaBHStyfCLvdp@satao.db.elephantsql.com/lllbhryb',  {
   dialect :'postgres'
 });
 

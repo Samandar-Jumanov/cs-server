@@ -20,7 +20,7 @@ const getAllSolutions = async (request , response ,  next ) =>{
 const giveSolution = async (request , response , next ) =>{
     try {
 
-        const {solution , problemId , solverId  , solverName  } = request.body
+        const {solution , problemId , userId  , solverName  } = request.body
         let t;
         try {
             t = await sequelize.transaction();
@@ -28,13 +28,12 @@ const giveSolution = async (request , response , next ) =>{
             const newSolution = await ProblemSolutions.create({
                 solution : solution,
                 problemId : problemId ,
-                solverId : solverId ,
                 solverName : solverName ,
                 isTrue : false ,
-                userId : solverId 
+                userId : userId
             } )
 
-            const user = await DbUsers.findByPk(solverId )
+            const user = await DbUsers.findByPk(userId )
             await problem.addSolutions(newSolution, {transaction : t }) 
              await problem.save()
             await user.addSolutions(newSolution, { transaction : t })

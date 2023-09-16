@@ -54,7 +54,7 @@ const ProblemSolutions = sequelize.define('problemSolutions', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  solverId: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -66,10 +66,7 @@ const ProblemSolutions = sequelize.define('problemSolutions', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
-  userId: { 
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+ 
 });
 
 DbUsers.hasMany(SharedCode, {
