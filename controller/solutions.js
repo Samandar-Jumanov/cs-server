@@ -73,8 +73,9 @@ const getUserSolutions = async (request , response , next ) =>{
       
 
         const allUserSolutions = user.solutions 
+
         return response.json({
-            allUserSolutions : allUserSolutions
+            allUserSolutions : user
             
         })
 
