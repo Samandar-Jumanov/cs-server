@@ -72,7 +72,7 @@ const getUserSolutions = async (request , response , next ) =>{
         
       
 
-        const allUserSolutions = user.solutions 
+        // const allUserSolutions = user.solutions 
 
         return response.json({
             allUserSolutions : user
