@@ -1,4 +1,4 @@
-const {SharedCode , ProblemSolutions } = require('../models/models');
+const {SharedCode , ProblemSolutions, DbUsers } = require('../models/models');
 const sequelize = require('../utils/db');
 
 const getAllSolutions = async (request , response ,  next ) =>{
@@ -20,7 +20,7 @@ const getAllSolutions = async (request , response ,  next ) =>{
 const giveSolution = async (request , response , next ) =>{
     try {
 
-        const {solution , problemId , solverId  , solverName  } = request.body
+        const {solution , problemId , solverId  , solverName  , userId } = request.body
         let t;
         try {
             t = await sequelize.transaction();
@@ -32,8 +32,14 @@ const giveSolution = async (request , response , next ) =>{
                 solverName : solverName ,
                 isTrue : false ,
             } )
+            const user = await DbUsers.findByPk(userId )
             await problem.addSolutions(newSolution, {transaction : t }) 
              await problem.save()
+
+             if(user){
+                return response.json({message :'User not found'})
+            }
+            await user.addSolutions(newSolution, { transaction : t })
 
             await  t.commit()
             response.json({
@@ -56,8 +62,34 @@ const giveSolution = async (request , response , next ) =>{
 }
 
 
+const getUserSolutions = async (request , response , next ) =>{
+    const {userId } = request.body 
+
+    try {
+
+        const user = await DbUsers.findByPk(userId , {
+            include :[
+                {model : ProblemSolutions , as :'solutions'}
+            ]
+        })
+        
+        if(!user)  return response.json({message :'User not found'})
+
+        const allUserSolutions = user.solutions 
+        return response.json({
+            allUserSolutions : allUserSolutions
+            
+        })
+
+    } catch (error) {
+        next(error)
+        
+    }
+}
 
 module.exports = {
     giveSolution,
     getAllSolutions,
+    getUserSolutions
 }
+

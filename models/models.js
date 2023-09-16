@@ -66,6 +66,10 @@ const ProblemSolutions = sequelize.define('problemSolutions', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
+  userId: { 
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });
 
 DbUsers.hasMany(SharedCode, {
@@ -85,6 +89,16 @@ SharedCode.hasMany(ProblemSolutions, {
 ProblemSolutions.belongsTo(SharedCode, {
   foreignKey: 'problemId',
 });
+
+DbUsers.hasMany(ProblemSolutions, {
+  foreignKey :'userId',
+  as :"solutions"
+
+})
+
+ProblemSolutions.belongsTo(DbUsers , {
+  foreignKey :'userId'
+})
 
 sequelize
   .sync()
