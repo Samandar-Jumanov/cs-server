@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 
 
-const sequelize = new Sequelize('postgres://ahmowesk:kycvCGKvZHRU68XTh5JrJmXhNApqHDyv@rain.db.elephantsql.com/ahmowesk',  {
+const sequelize = new Sequelize('postgres://Samandar-Jumanov:q6jrkSF7UVnN@ep-bitter-bar-02291163.us-east-2.aws.neon.tech/neondb?sslmode=require',  {
   dialect :'postgres'
 });
 
