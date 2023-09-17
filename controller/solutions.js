@@ -37,7 +37,7 @@ const giveSolution = async (request , response , next ) =>{
             } )
 
             await problem.addProblemSolution(newSolution, {transaction : t }) 
-            await user.addSolutions(newSolution, { transaction : t })
+            await user.addUserSolutions(newSolution, { transaction : t })
             await problem.save()
             await user.save()
             await  t.commit()
