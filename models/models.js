@@ -67,7 +67,7 @@ const ProblemSolutions = sequelize.define('problemSolutions', {
     allowNull: false,
   },
   problem :{
-    type : DataTypes.STRING,
+    type : DataTypes.JSONB,
     allowNull : false 
   }
  
