@@ -1,3 +1,4 @@
+const { response } = require('express');
 const {SharedCode , ProblemSolutions, DbUsers } = require('../models/models');
 const sequelize = require('../utils/db');
 
@@ -62,28 +63,26 @@ const giveSolution = async (request , response , next ) =>{
 }
 
 
-const getUserSolutions = async (request , response , next ) =>{
-    const {userId } = request.body 
+const getUserSolutions = async (request , response , next ) => {
+    const {userId} = request.params 
 
     try {
-        const user = await DbUsers.findByPk(userId ,{
-            include :[
-                {model : ProblemSolutions , as :'userSolutions'}
-            ]
-        })
-        const allUserSolutions = user.userSolutions 
-
-        console.log(user)
-
+      const user = await DbUsers.findByPk(userId);
+      if (user) {
+        const userSolutions = await user.getUserSolutions();
         return response.json({
-            allUserSolutions : allUserSolutions
-        })
-
+            userSolutions : userSolutions
+        });
+      } else {
+        return response.json({
+            message :'You didnt have solutions '
+        });
+      }
     } catch (error) {
-        next(error)
-        
+      console.log(error);
+       next(error)
     }
-}
+  };
 
 
 const getSpecificProblemSolutions = async (request , response , next ) =>{
