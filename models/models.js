@@ -66,6 +66,10 @@ const ProblemSolutions = sequelize.define('problemSolutions', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
+  problem :{
+    type : DataTypes.STRING,
+    allowNull : false 
+  }
  
 });
 
@@ -80,7 +84,7 @@ SharedCode.belongsTo(DbUsers, {
 
 SharedCode.hasMany(ProblemSolutions, {
   foreignKey: 'problemId',
-  as: 'solutions',
+  as: 'problemSolution',
 });
 
 ProblemSolutions.belongsTo(SharedCode, {

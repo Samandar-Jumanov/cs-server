@@ -32,15 +32,16 @@ const giveSolution = async (request , response , next ) =>{
                 problemId : problemId ,
                 solverName : solverName ,
                 isTrue : false ,
-                userId : userId
+                userId : userId,
+                problem : problem.problem
             } )
 
-            await problem.addSolutions(newSolution, {transaction : t }) 
+            await problem.addProblemSolution(newSolution, {transaction : t }) 
             await user.addSolutions(newSolution, { transaction : t })
             await problem.save()
             await user.save()
-
             await  t.commit()
+            
             response.json({
                 message :'Solution posted ',
                 newSolution : newSolution
@@ -65,21 +66,17 @@ const getUserSolutions = async (request , response , next ) =>{
     const {userId } = request.body 
 
     try {
-
         const user = await DbUsers.findByPk(userId ,{
             include :[
                 {model : ProblemSolutions , as :'solutions'}
             ]
         })
-        
-      
-
-        // const allUserSolutions = user.solutions 
+        const allUserSolutions = user.solutions 
 
         console.log(user)
 
         return response.json({
-            allUserSolutions : user
+            allUserSolutions : allUserSolutions
             
         })
 
@@ -96,13 +93,14 @@ const getSpecificProblemSolutions = async (request , response , next ) =>{
     try {
         const problem = await SharedCode.findByPk(problemId , {
             include :[
-                {model :ProblemSolutions , as :'solutions'}
+                {model :ProblemSolutions , as :'problemSolution'}
             ]
         })
 
-        const problemSolutions = problem.addSolutions
+
+        const problemSolutions = problem.problemSolution
         response.json(
-            problemSolutions
+            {problemSolutions : problemSolutions}
         )
 
         
