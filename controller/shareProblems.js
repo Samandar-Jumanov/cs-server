@@ -36,7 +36,7 @@ const shareProblem = async (request, response, next) => {
       await user.save()
       await t.commit();
 
-      
+
       response.json(newProblem);
     } catch (error) {
       await t.rollback();
@@ -48,7 +48,32 @@ const shareProblem = async (request, response, next) => {
   }
 };
 
+
+const getUserCreatedProblems = async (request , response , next ) =>{
+
+  const {userId} = request.params
+
+  try {
+    const user = await DbUsers.findByPk(userId , {
+      include :[
+        {model : SharedCode , as :'problems'}
+      ]
+    })
+
+    const userSharedCode = user.problems
+    
+
+    return response.json({
+      userSharedCode : userSharedCode
+    })
+  } catch (error) {
+   next(error)
+    
+  }
+}
+
 module.exports = {
   getAllProblems,
-  shareProblem
+  shareProblem,
+  getUserCreatedProblems
 }
