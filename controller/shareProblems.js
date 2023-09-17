@@ -32,11 +32,11 @@ const shareProblem = async (request, response, next) => {
       if (!user) {
         throw new Error('User not found');
       }
-      await user.addProblems(newProblem)
+      await user.addProblems(newProblem  , {transaction : t })
       await user.save()
-
       await t.commit();
 
+      
       response.json(newProblem);
     } catch (error) {
       await t.rollback();
