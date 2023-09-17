@@ -1,5 +1,7 @@
-const { SharedCode, DbUsers } = require('../models/models');
+const  SharedCode = require('../models/shareCode.js');
+const DbUsers= require('../models/users')
 const sequelize = require('../utils/db');
+
 
 const getAllProblems = async (request, response, next) => {
   try {

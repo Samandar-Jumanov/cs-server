@@ -1,6 +1,7 @@
-const { response } = require('express');
-const {SharedCode , ProblemSolutions, DbUsers } = require('../models/models');
 const sequelize = require('../utils/db');
+const SharedCode = require('../models/shareCode')
+const  ProblemSolutions = require('../models/problemSolutions')
+const  DbUsers = require('../models/users')
 
 const getAllSolutions = async (request , response ,  next ) =>{
     try {
@@ -94,14 +95,10 @@ const getSpecificProblemSolutions = async (request , response , next ) =>{
                 {model :ProblemSolutions , as :'problemSolution'}
             ]
         })
-
-
         const problemSolutions = problem.problemSolution
         response.json(
             {problemSolutions : problemSolutions}
         )
-
-        
     } catch (error) {
         next(error)
         
