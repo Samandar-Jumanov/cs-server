@@ -68,16 +68,15 @@ const getUserSolutions = async (request , response , next ) =>{
     try {
         const user = await DbUsers.findByPk(userId ,{
             include :[
-                {model : ProblemSolutions , as :'solutions'}
+                {model : ProblemSolutions , as :'userSolutions'}
             ]
         })
-        const allUserSolutions = user.solutions 
+        const allUserSolutions = user.userSolutions 
 
         console.log(user)
 
         return response.json({
             allUserSolutions : allUserSolutions
-            
         })
 
     } catch (error) {
