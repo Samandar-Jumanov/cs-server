@@ -41,7 +41,7 @@ const giveSolution = async (request , response , next ) =>{
             await problem.save()
             await user.save()
             await  t.commit()
-            
+
             response.json({
                 message :'Solution posted ',
                 newSolution : newSolution
@@ -105,7 +105,7 @@ const getSpecificProblemSolutions = async (request , response , next ) =>{
 
         
     } catch (error) {
-        nect(error)
+        next(error)
         
     }
 }
