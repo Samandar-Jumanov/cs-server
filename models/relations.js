@@ -1,6 +1,9 @@
 const DbUsers = require('./users');
 const SharedCode = require('./shareCode');
 const ProblemSolutions = require('./problemSolutions');
+const Stars = require('../models/stars')
+const GivenStars  = require('./givenStar')
+
 
 // Define associations
 DbUsers.hasMany(SharedCode, {
@@ -30,4 +33,30 @@ ProblemSolutions.belongsTo(DbUsers, {
   foreignKey: 'userId',
 });
 
-module.exports = { DbUsers, SharedCode, ProblemSolutions };
+
+//Stars and Users 
+
+Stars.belongsTo(DbUsers, {
+  foreignKey :'userId'
+})
+
+DbUsers.hasMany(Stars , {
+  foreignKey :'userId',
+  as :'stars'
+})
+
+
+//Given stars 
+GivenStars.belongsTo(DbUsers , {
+  foreignKey :'userId',
+})
+
+DbUsers.hasMany(GivenStars , {
+  foreignKey :'userId',
+  as :'givenStars'
+})
+
+
+
+
+module.exports = { DbUsers, SharedCode, ProblemSolutions , Stars };

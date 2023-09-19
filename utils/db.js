@@ -6,7 +6,6 @@ const sequelize = new Sequelize('postgres://Samandar-Jumanov:q6jrkSF7UVnN@ep-bit
   dialect :'postgres'
 });
 
-module.exports = sequelize;
 
 sequelize.authenticate()
   .then(() => {
