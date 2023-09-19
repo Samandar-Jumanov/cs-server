@@ -28,7 +28,7 @@ const Followers = sequelize.define('followers', {
      id : {
         type : DataTypes.INTEGER,
         autoIncrement : true ,
-        primaryKey : tru 
+        primaryKey : true
      },
      followerUsername : {
         type : DataTypes.STRING,
