@@ -4,6 +4,7 @@ const cors = require('cors')
 const sequelize = require('./utils/db')
 const problemsRouter = require('./routes/shareProblems')
 const solutionRouter = require('./routes/solutions')
+const { followRouter } = require('./routes/follow')
 const app = express()
 
 
@@ -25,6 +26,7 @@ app.get('/', (req, res , next )=>{
 app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/problems', problemsRouter)
 app.use('/api/v1/solutions', solutionRouter)
+app.use('/api/v1/follows', followRouter)
 
 sequelize.sync().then(()=>{
   console.log('Database  working ')

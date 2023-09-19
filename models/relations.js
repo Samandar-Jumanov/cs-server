@@ -67,7 +67,7 @@ Followers.belongsTo(DbUsers , {
 })
 
 DbUsers.hasMany(Followers , {
-  foreignKey :'userId', as :'followers'
+  foreignKey :'userId', as :'follower'
 })
 
 Following.belongsTo(DbUsers , {
@@ -76,4 +76,4 @@ Following.belongsTo(DbUsers , {
 
 
 
-module.exports = { DbUsers, SharedCode, ProblemSolutions , Stars };
+module.exports = { DbUsers, SharedCode, ProblemSolutions , Stars , Followers , Following };
