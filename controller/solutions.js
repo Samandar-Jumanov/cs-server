@@ -1,7 +1,5 @@
 const sequelize = require('../utils/db');
-const SharedCode = require('../models/shareCode')
-const  ProblemSolutions = require('../models/problemSolutions')
-const  DbUsers = require('../models/users')
+const {SharedCode , ProblemSolutions , DbUsers}  = require('../models/relations')
 
 const getAllSolutions = async (request , response ,  next ) =>{
     try {

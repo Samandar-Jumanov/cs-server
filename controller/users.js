@@ -1,7 +1,8 @@
-const DbUsers = require('../models/users')
+const {DbUsers} = require('../models/relations')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
+
 
 
 

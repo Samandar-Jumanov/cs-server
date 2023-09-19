@@ -1,5 +1,4 @@
-const  SharedCode = require('../models/shareCode.js');
-const DbUsers= require('../models/users')
+const {DbUsers , SharedCode}= require('../models/relations')
 const sequelize = require('../utils/db');
 
 
