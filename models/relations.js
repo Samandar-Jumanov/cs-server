@@ -2,7 +2,8 @@ const DbUsers = require('./users');
 const SharedCode = require('./shareCode');
 const ProblemSolutions = require('./problemSolutions');
 const Stars = require('../models/stars')
-const GivenStars  = require('./givenStar')
+const GivenStars  = require('./givenStar');
+const { Followers, Following } = require('./follow');
 
 
 
@@ -57,6 +58,21 @@ DbUsers.hasMany(GivenStars , {
   as :'givenStars'
 })
 
+
+
+//Users and follow 
+
+Followers.belongsTo(DbUsers , {
+  foreignKey :'userId'
+})
+
+DbUsers.hasMany(Followers , {
+  foreignKey :'userId', as :'followers'
+})
+
+Following.belongsTo(DbUsers , {
+  foreignKey :'userId', as :'following'
+})
 
 
 
