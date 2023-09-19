@@ -5,14 +5,18 @@ const Stars = require('../models/stars')
 const GivenStars  = require('./givenStar')
 
 
-// Define associations
+
+SharedCode.belongsTo(DbUsers, {
+  foreignKey: 'userId',
+});
+
 DbUsers.hasMany(SharedCode, {
   foreignKey: 'userId',
   as: 'problems',
 });
 
-SharedCode.belongsTo(DbUsers, {
-  foreignKey: 'userId',
+ProblemSolutions.belongsTo(SharedCode, {
+  foreignKey: 'problemId',
 });
 
 SharedCode.hasMany(ProblemSolutions, {
@@ -20,8 +24,8 @@ SharedCode.hasMany(ProblemSolutions, {
   as: 'problemSolution',
 });
 
-ProblemSolutions.belongsTo(SharedCode, {
-  foreignKey: 'problemId',
+ProblemSolutions.belongsTo(DbUsers, {
+  foreignKey: 'userId',
 });
 
 DbUsers.hasMany(ProblemSolutions, {
@@ -29,9 +33,6 @@ DbUsers.hasMany(ProblemSolutions, {
   as: 'userSolutions',
 });
 
-ProblemSolutions.belongsTo(DbUsers, {
-  foreignKey: 'userId',
-});
 
 
 //Stars and Users 
