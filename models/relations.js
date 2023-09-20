@@ -81,4 +81,4 @@ DbUsers.hasMany(UserFollowings, {
 
 
 
-module.exports = { DbUsers, SharedCode, ProblemSolutions , Stars , Followers , FollowingUsers };
+module.exports = { DbUsers, SharedCode, ProblemSolutions , Stars ,UserFollowings , UserFollowers };
