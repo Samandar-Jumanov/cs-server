@@ -15,7 +15,7 @@ const Followers = async (request , response , next ) =>{
 
         if(!user || !followingUser){
             return response.json({
-                message :'User not found'
+                message :'User not found '
             })
         }
 
@@ -23,20 +23,24 @@ const Followers = async (request , response , next ) =>{
             userId : userId , 
             followingUserId : followingUserId ,
             followingUsername : followingUser.username 
+             
         } , {transaction: t })
+        
 
+        const userId = followingUserId
+        const followerUserId = userId 
+        const    followerUsername = user.username 
        await   user.addFollowing(newFollowing , {transaction: t })
 
-       await followingUser.addFollower({
-        followerUsername : user.username,
-        followerUserId : userId ,
-        userId :  followingUserId 
-       }, {transaction : t })
+       await followingUser.addFollower(
+        followerUsername ,
+        followerUserId ,
+        userId 
+       , {transaction : t })
 
        return response.json({
         message :'Followed succesfully'
        })
-
     } catch (error) {
         console.log(error)
         await t.rollback()
