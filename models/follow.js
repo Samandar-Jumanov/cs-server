@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/db");
 
 
-const FollowingUsers = sequelize.define('followingUsers', {
+const UserFollowings = sequelize.define('userFollowings', {
     id : {
         type : DataTypes.INTEGER,
         primaryKey : true ,
@@ -12,39 +12,38 @@ const FollowingUsers = sequelize.define('followingUsers', {
         type : DataTypes.INTEGER ,
          allowNull : true         
     },
-    folowingUserId : {
+    addedUserId : {
         type : DataTypes.INTEGER ,
          allowNull : true   
     },
-    followingUsername : {
+    addedUsername : {
         type : DataTypes.STRING  ,
          allowNull : true   
     }
 })
 
 
-const Followers = sequelize.define('followers', {
-     id : {
+const UserFollowers = sequelize.define('userFollowers', {
+    id : {
         type : DataTypes.INTEGER,
-        autoIncrement : true ,
-        primaryKey : true
-     },
-     followerUsername : {
-        type : DataTypes.STRING,
-        allowNull : false 
-     },
-     followerUserId : {
-        type : DataTypes.INTEGER,
-        allowNull : false
-     },
-     userId : {
-        type : DataTypes.INTEGER,
-        allowNull : false
-
-     }
+        primaryKey : true ,
+        autoIncrement : true 
+    },
+    userId : {
+        type : DataTypes.INTEGER ,
+         allowNull : true         
+    },
+    addedUserId : {
+        type : DataTypes.INTEGER ,
+         allowNull : true   
+    },
+    addedUsername : {
+        type : DataTypes.STRING  ,
+         allowNull : true   
+    }
 })
 
 module.exports = {
-    Followers ,
-    FollowingUsers
+    UserFollowers ,
+    UserFollowings
 }
