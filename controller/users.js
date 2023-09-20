@@ -6,6 +6,21 @@ require('dotenv').config()
 
 
 
+const getAllUsers = async (request , response , next ) =>{
+    try {
+        
+        const allUsers = await DbUsers.findAll()
+        response.json({
+            allUsers : allUsers
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+
+
 const Signup = async (request , response , next ) =>{
     try {
         const {username , password } = request.body 
@@ -84,4 +99,5 @@ const Login = async (request , response , next ) =>{
 module.exports ={
     Signup,
     Login ,
+    getAllUsers
 }

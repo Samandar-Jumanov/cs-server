@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/db");
 
 
-const Following = sequelize.define('following', {
+const FollowingUsers = sequelize.define('followingUsers', {
     id : {
         type : DataTypes.INTEGER,
         primaryKey : true ,
@@ -12,15 +12,14 @@ const Following = sequelize.define('following', {
         type : DataTypes.INTEGER ,
          allowNull : true         
     },
-    followingUsername : {
-        type : DataTypes.INTEGER ,
-         allowNull : true   
-    },
     folowingUserId : {
         type : DataTypes.INTEGER ,
          allowNull : true   
     },
-
+    followingUsername : {
+        type : DataTypes.STRING  ,
+         allowNull : true   
+    }
 })
 
 
@@ -37,10 +36,15 @@ const Followers = sequelize.define('followers', {
      followerUserId : {
         type : DataTypes.INTEGER,
         allowNull : false
+     },
+     userId : {
+        type : DataTypes.INTEGER,
+        allowNull : false
+
      }
 })
 
 module.exports = {
     Followers ,
-    Following
+    FollowingUsers
 }
