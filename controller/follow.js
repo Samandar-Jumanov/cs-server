@@ -1,4 +1,4 @@
-const {DbUsers, FollowingUsers} = require("../models/relations");
+const {DbUsers, UserFollowers , UserFollowings} = require("../models/relations");
 const sequelize = require("../utils/db");
 
 
@@ -19,21 +19,23 @@ const Followers = async (request , response , next ) =>{
             })
         }
 
-        const newFollowing = await FollowingUsers.create({
+        const newFollowing = await UserFollowings.create({
             userId : userId , 
             addedUserId : followingUserId ,
             addedUsername : followingUser.username 
              
         } , {transaction: t })
-       await  user.addFollowing(newFollowing , {transaction: t })
-        await followingUser.addFollower({
 
-            userId : newFollowing.addedUserId , 
-            addedUserId : newFollowing.userId ,
-            addedUsername :newFollowing.username 
+       await  user.addFollowing(newFollowing , {transaction: t })
+
+      const newFollower =   await UserFollowers.create({
+            userId : followingUserId, 
+            addedUserId : userId,
+            addedUsername : user.username 
         } , { transaction : t })
        
-
+       await followingUser.addFollower(newFollower , { transaction : t })
+       
        return response.json({
         message :'Followed succesfully'
        })
