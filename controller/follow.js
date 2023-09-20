@@ -29,16 +29,7 @@ const Followers = async (request , response , next ) =>{
 
         
        await   user.addFollowing(newFollowing , {transaction: t })
-
-    const followerUserId = userId 
-    const    followerUsername = user.username  
-
-    
-       await followingUser.addFollower(
-        followerUsername ,
-        followerUserId ,
-        userId 
-       , {transaction : t })
+       await followingUser.addFollower( newFollowing, {transaction : t })
 
        return response.json({
         message :'Followed succesfully'
