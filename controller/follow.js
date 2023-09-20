@@ -1,8 +1,6 @@
 const {DbUsers, UserFollowers , UserFollowings} = require("../models/relations");
 const sequelize = require("../utils/db");
 
-
-
 const Followers = async (request , response , next ) =>{
 
     const {userId , followingUserId  } = request.body
