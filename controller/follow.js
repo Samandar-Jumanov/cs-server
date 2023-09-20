@@ -25,13 +25,15 @@ const Followers = async (request , response , next ) =>{
             followingUsername : followingUser.username 
              
         } , {transaction: t })
-        
 
-        const userId = followingUserId
-        const followerUserId = userId 
-        const    followerUsername = user.username 
+
+        
        await   user.addFollowing(newFollowing , {transaction: t })
 
+    const followerUserId = userId 
+    const    followerUsername = user.username  
+
+    
        await followingUser.addFollower(
         followerUsername ,
         followerUserId ,
