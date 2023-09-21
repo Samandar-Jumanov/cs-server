@@ -47,7 +47,8 @@ const Signup = async (request , response , next ) =>{
         await newUser.save()
 
         return response.json({
-            user : newUser
+            username : newUser.username,
+            userId : newUser.id 
         })
         } catch (error) {
             console.log(error)
