@@ -1,7 +1,7 @@
 const DbUsers = require('./users');
 const SharedCode = require('./shareCode');
 const ProblemSolutions = require('./problemSolutions');
-const Stars = require('../models/stars')
+const Stars = require('./stars')
 const { UserFollowers ,UserFollowings } = require('./follow');
 const { Messages } = require('./Messages');
 
