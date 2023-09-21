@@ -45,12 +45,12 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
 
         const senderUser = await DbUsers.findByPk(userId)
         const recieverUser = await DbUsers.findByPk(recieverUserId)
-
-        if(!senderUser || !recieverUser){
-          return response.json({
-            message :'User not found '
-          })
-        }
+        
+        // if(!senderUser || !recieverUser){
+        //   return response.json({
+        //     message :'User not found '
+        //   })
+        // }
    
         await  io.to(recieverUserId).emit('send_message', message)
         
@@ -61,7 +61,7 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
           from : user.username 
         })
 
-        await user.addMessages(newMessage,{ transaction : t })
+        await senderUser.addMessages(newMessage,{ transaction : t })
         await recieverUser.addMessages(newMessage , {transaction : t })
         await t.commit()
 
