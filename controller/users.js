@@ -23,7 +23,7 @@ const getAllUsers = async (request , response , next ) =>{
 
 const Signup = async (request , response , next ) =>{
     try {
-        const {username , password } = request.body 
+        const {username , password  , bio} = request.body 
         const user = await DbUsers.findOne({
             where : {username}
         } )
@@ -37,7 +37,8 @@ const Signup = async (request , response , next ) =>{
         const newUser = await DbUsers.create({
             username : username ,
             password : hashedPassword,
-            token : process.env.SECRETKEY
+            token : process.env.SECRETKEY,
+            bio : bio 
         } )
         
        
@@ -95,11 +96,46 @@ const Login = async (request , response , next ) =>{
 }
 
 
+const getUserInfo = async (request , response , next ) =>{
+
+    const {userId} = request.params 
+
+    try {
+        const user  = await DbUsers.findByPk(userId)
+        if(!user){
+            return response.json({
+                message : 'User not found '
+            })
+        }
+
+        const userMessages = await user.getMessages()
+        const  userProblems = await user.getProblems()
+        const userSolutions = await user.getUserSolutions()
+        const userFollowers = await  user.getFollower()
+        const userFollowings = await user.getFollowings()
+
+        return response.json({
+        userMessages : userMessages,
+        userProblems : userProblems , 
+        userSolutions : userSolutions,
+        userFollowers : userFollowers,
+        userFollowings : userFollowings
+        })
+        
+    } catch (error) {
+        console.log(error)
+        next(error)
+        
+    }
+
+}
+
 
 
 
 module.exports ={
     Signup,
     Login ,
-    getAllUsers
+    getAllUsers,
+    getUserInfo
 }

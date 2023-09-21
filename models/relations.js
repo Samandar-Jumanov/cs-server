@@ -36,18 +36,6 @@ DbUsers.hasMany(ProblemSolutions, {
 
 
 
-//Stars and Users 
-
-Stars.belongsTo(DbUsers, {
-  foreignKey :'userId'
-})
-
-DbUsers.hasMany(Stars , {
-  foreignKey :'userId',
-  as :'stars'
-})
-
-
 //Users and follow 
 
 UserFollowers.belongsTo(DbUsers , {
