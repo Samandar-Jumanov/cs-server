@@ -51,14 +51,21 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
         //     message :'User not found '
         //   })
         // }
+
+        try{
+           await  io.to(recieverUserId).emit('send_message', message)
+           console.log(message)
+        }catch(err){
+         console.log(error)
+
+        }
    
-        await  io.to(recieverUserId).emit('send_message', message)
         
         const newMessage = await Messages.create({
           message : message ,
           userId : userId ,
           recieverUserId : recieverUserId ,
-          from : user.username 
+          from : senderUser.username 
         })
 
         await senderUser.addMessages(newMessage,{ transaction : t })
