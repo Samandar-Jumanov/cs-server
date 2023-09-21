@@ -47,7 +47,7 @@ const Signup = async (request , response , next ) =>{
         newUser.token = token
         await newUser.save()
 
-        return response.json({
+        return response.status(201).json({
             username : newUser.username,
             userId : newUser.id 
         })
@@ -84,7 +84,8 @@ const Login = async (request , response , next ) =>{
         const newToken = await jwt.sign({userId : user.id}, process.env.SECRETKEY)
         user.token =  newToken
         await user.save()
-        return response.json({
+
+        return response.status(201).json({
             username: user.username ,
             userId : user.id,
             message :'Logged in succesfully'
