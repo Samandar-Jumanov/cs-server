@@ -112,7 +112,7 @@ const getUserInfo = async (request , response , next ) =>{
         const  userProblems = await user.getProblems()
         const userSolutions = await user.getUserSolutions()
         const userFollowers = await  user.getFollower()
-        const userFollowings = await user.getFollowings()
+        const userFollowings = await user.getFollowing()
 
         return response.json({
         userMessages : userMessages,
