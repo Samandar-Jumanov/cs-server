@@ -43,8 +43,8 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
        try {
         t = await sequelize.transaction();
 
-        const senderUser = await DbUsers.findOne(userId)
-        const recieverUser = await DbUsers.findOne(recieverUserId)
+        const senderUser = await DbUsers.findByPk(userId)
+        const recieverUser = await DbUsers.findByPk(recieverUserId)
 
         if(!senderUser || !recieverUser){
           return response.json({
