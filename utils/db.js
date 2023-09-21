@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config()
 
 
-
-const sequelize = new Sequelize('postgres://Samandar-Jumanov:q6jrkSF7UVnN@ep-bitter-bar-02291163.us-east-2.aws.neon.tech/neondb?sslmode=require',  {
-  dialect :'postgres'
+const sequelize = new Sequelize(process.env.DATABASEURL,  {
+  dialect :process.env.DIALECT
 });
 
 
