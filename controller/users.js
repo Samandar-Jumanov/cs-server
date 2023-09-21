@@ -23,11 +23,12 @@ const getAllUsers = async (request , response , next ) =>{
 
 const Signup = async (request , response , next ) =>{
     try {
-        const {username , password  , bio} = request.body 
+        const {username , password  } = request.body 
         const user = await DbUsers.findOne({
             where : {username}
         } )
         
+        console.log(user)
         if(user){
             return response.json('User not found ')
         }
@@ -38,7 +39,6 @@ const Signup = async (request , response , next ) =>{
             username : username ,
             password : hashedPassword,
             token : process.env.SECRETKEY,
-            bio : bio 
         } )
         
        
@@ -102,6 +102,7 @@ const getUserInfo = async (request , response , next ) =>{
 
     try {
         const user  = await DbUsers.findByPk(userId)
+        
         if(!user){
             return response.json({
                 message : 'User not found '
