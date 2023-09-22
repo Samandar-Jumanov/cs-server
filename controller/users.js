@@ -69,7 +69,7 @@ const Login = async (request , response , next ) =>{
         })
         
         if(!user){
-            return response.status(401).json({
+            return response.json({
                 message :'User not  found  '
             })
         }
