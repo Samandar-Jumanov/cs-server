@@ -46,18 +46,17 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
         const senderUser = await DbUsers.findByPk(userId)
         const recieverUser = await DbUsers.findByPk(recieverUserId)
         
-        // if(!senderUser || !recieverUser){
-        //   return response.json({
-        //     message :'User not found '
-        //   })
-        // }
+        if(!senderUser || !recieverUser){
+          return response.json({
+            message :'User not found '
+          })
+        }
 
         try{
            await  io.to(recieverUserId).emit('send_message', message)
            console.log(message)
         }catch(err){
-         console.log(error)
-
+         console.log(err)
         }
    
         
@@ -82,21 +81,11 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
        }
 })
 
-
-
-
-
 sequelize.sync().then(()=>{
   console.log('Database  working ')
 }).catch((error)=>{
   console.log(error)
 })
-
-
-
-
-
-
 
 server.listen(3001 ,()=>{
   console.log('Server started ')

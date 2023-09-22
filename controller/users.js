@@ -69,7 +69,7 @@ const Login = async (request , response , next ) =>{
         })
         
         if(!user){
-            return response.json({
+            return response.status(401).json({
                 message :'User not  found  '
             })
         }
@@ -77,7 +77,7 @@ const Login = async (request , response , next ) =>{
         const isTruePassword = await bcrypt.compare(password , user.password)
 
         if(isTruePassword){
-            return response.json({
+            return response.status(401).json({
                 message :'Invalid password '
             })
         }
@@ -85,7 +85,7 @@ const Login = async (request , response , next ) =>{
         user.token =  newToken
         await user.save()
 
-        return response.status(201).json({
+        return response.status(200).json({
             username: user.username ,
             userId : user.id,
             message :'Logged in succesfully'
