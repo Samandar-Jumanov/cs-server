@@ -77,7 +77,7 @@ const Login = async (request , response , next ) =>{
         const isTruePassword = await bcrypt.compare(password , user.password)
 
         if(isTruePassword){
-            return response.status(401).json({
+            return response.json({
                 message :'Invalid password '
             })
         }
