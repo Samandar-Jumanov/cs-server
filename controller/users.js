@@ -116,12 +116,32 @@ const getUserInfo = async (request , response , next ) =>{
         const userFollowers = await  user.getFollower()
         const userFollowings = await user.getFollowing()
 
+        const allUsers = await DbUsers.findAll();
+        const userFollowed = await user.getFollowing();
+  
+        let unfollowedUsers = [];
+  
+        for (let i = 0; i <= allUsers.length - 1; i++) {
+        let isFollowed = false;
+  
+        for (let j = 0; j <= userFollowed.length - 1; j++) {
+          if (allUsers[i].id === userFollowed[j].id) {
+            isFollowed = true;
+            break;
+          }
+        }
+  
+        if (!isFollowed) {
+          unfollowedUsers.push(allUsers[i]);
+        }
+      }
         return response.json({
         userMessages : userMessages,
         userProblems : userProblems , 
         userSolutions : userSolutions,
         userFollowers : userFollowers,
-        userFollowings : userFollowings
+        userFollowings : userFollowings,
+        unfollowedUsers : unfollowedUsers
         })
         
     } catch (error) {
