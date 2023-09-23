@@ -44,8 +44,48 @@ const Followers = async (request , response , next ) =>{
     }
 }
 
+const unfollowedUsers = async (request, response, next) => {
+    const { userId } = request.params;
+    try {
+      const user = await DbUsers.findByPk(userId);
+  
+      if (!user) {
+        return response.json({
+          message: 'User not found',
+        });
+      }
+  
+      const allUsers = await DbUsers.findAll();
+      const userFollowed = await user.getFollowing();
+  
+      let unfollowedUsers = [];
+  
+      for (let i = 0; i <= allUsers.length - 1; i++) {
+        let isFollowed = false;
+  
+        for (let j = 0; j <= userFollowed.length - 1; j++) {
+          if (allUsers[i].id === userFollowed[j].id) {
+            isFollowed = true;
+            break;
+          }
+        }
+  
+        if (!isFollowed) {
+          unfollowedUsers.push(allUsers[i]);
+        }
+      }
+  
+      return response.json({
+        unfollowedUsers: unfollowedUsers,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
 module.exports = {
-    Followers
+    Followers,
+    unfollowedUsers
 }
 
 
