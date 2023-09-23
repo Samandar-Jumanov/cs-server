@@ -31,12 +31,5 @@ const ProblemSolutions = sequelize.define('problemSolutions', {
   },
 });
 
-ProblemSolutions.belongsTo(SharedCode, {
-  foreignKey: 'problemId',
-});
-
-ProblemSolutions.belongsTo(DbUsers, {
-  foreignKey: 'userId',
-});
 
 module.exports = ProblemSolutions;
