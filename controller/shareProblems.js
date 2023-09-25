@@ -26,8 +26,6 @@ const shareProblem = async (request, response, next) => {
           userId : userId  },
          { transaction: t });
 
-         
-
       const user = await DbUsers.findByPk(userId, { transaction: t });
       if (!user) {
         throw new Error('User not found');
