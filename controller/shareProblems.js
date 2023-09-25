@@ -23,8 +23,7 @@ const shareProblem = async (request, response, next) => {
     try {
       const newProblem = await SharedCode.create(
         { problem  : problem, 
-            userId : userId  , 
-            sharedCode  : sharedCode },
+          userId : userId  },
          { transaction: t });
 
          
