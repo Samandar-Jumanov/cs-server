@@ -14,6 +14,10 @@ const SharedCode = sequelize.define('sharedCode', {
     allowNull: false,
     unique: true,
   },
+  creatorName : {
+    type : DataTypes.STRING ,
+    allowNull : false 
+  }, 
   isSolved: {
     type: DataTypes.BOOLEAN,
     allowNull: false,

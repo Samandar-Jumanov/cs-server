@@ -19,11 +19,13 @@ const shareProblem = async (request, response, next) => {
     const { problem, userId   } = request.body;
 
     const t = await sequelize.transaction();
-
+     const creatorName = await DbUsers.findByPk(userId).username 
     try {
       const newProblem = await SharedCode.create(
         { problem  : problem, 
-          userId : userId  },
+          creatorName : creatorName , 
+          isSolved : false 
+         },
          { transaction: t });
 
       const user = await DbUsers.findByPk(userId, { transaction: t });
