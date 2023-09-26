@@ -1,7 +1,6 @@
 const DbUsers = require('./users');
 const SharedCode = require('./shareCode');
 const ProblemSolutions = require('./problemSolutions');
-const Stars = require('./stars')
 const { UserFollowers ,UserFollowings } = require('./follow');
 const { Messages } = require('./Messages');
 
@@ -70,7 +69,6 @@ DbUsers.hasMany(Messages , {
 module.exports = { DbUsers, 
   SharedCode, 
   ProblemSolutions , 
-  Stars ,
   UserFollowings , 
   UserFollowers ,
   Messages };
