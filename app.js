@@ -10,6 +10,7 @@ const http = require('http')
 const {Server} = require('socket.io')
 const server = http.createServer(app)
 const {DbUsers, Messages} = require('./models/relations')
+const cookieParser  = require('cookie-parser')
 
 const io =  new Server(server ,
   cors({
@@ -24,7 +25,7 @@ app.use(cors());
     app.get('/', (req, res , next )=>{
       res.send('Started')
     })
-    
+app.use(cookieParser())
 app.use(express.json())
 app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/problems', problemsRouter)

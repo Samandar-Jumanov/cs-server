@@ -33,16 +33,15 @@ const shareProblem = async (request, response, next) => {
       await user.addProblems(newProblem  , {transaction : t })
       await user.save()
       await t.commit();
-
-
-      response.json(newProblem);
+      return  response.json(newProblem);
     } catch (error) {
       await t.rollback();
-      throw error;
+       next(error)
     }
   } catch (error) {
     console.log(error);
     response.status(500).json({ error: 'Internal server error' });
+    next(error)
   }
 };
 
@@ -66,7 +65,6 @@ const getUserCreatedProblems = async (request , response , next ) =>{
     })
   } catch (error) {
    next(error)
-    
   }
 }
 

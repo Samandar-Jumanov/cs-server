@@ -4,8 +4,6 @@ const bcrypt = require('bcrypt')
 require('dotenv').config()
 
 
-
-
 const getAllUsers = async (request , response , next ) =>{
     try {
         
@@ -17,8 +15,6 @@ const getAllUsers = async (request , response , next ) =>{
         next(error)
     }
 }
-
-
 
 
 const Signup = async (request , response , next ) =>{
@@ -57,8 +53,6 @@ const Signup = async (request , response , next ) =>{
     }
 }
 
-
-
 const Login = async (request , response , next ) =>{
     const {username , password } = request.body 
 
@@ -84,7 +78,7 @@ const Login = async (request , response , next ) =>{
         const newToken = await jwt.sign({userId : user.id}, process.env.SECRETKEY)
         user.token =  newToken
         await user.save()
-
+        response.cookie('token', newToken, { httpOnly: true });
         return response.status(200).json({
             username: user.username ,
             userId : user.id,

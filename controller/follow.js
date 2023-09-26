@@ -25,7 +25,6 @@ const Followers = async (request , response , next ) =>{
         } , {transaction: t })
 
        await  user.addFollowing(newFollowing , {transaction: t })
-
       const newFollower =   await UserFollowers.create({
             userId : followingUserId, 
             addedUserId : userId,
@@ -43,8 +42,6 @@ const Followers = async (request , response , next ) =>{
         next(error)
     }
 }
-
-
   
 module.exports = {
     Followers
