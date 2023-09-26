@@ -36,6 +36,7 @@ const shareProblem = async (request, response, next) => {
       return  response.json(newProblem);
     } catch (error) {
       await t.rollback();
+      console.log(error)
        next(error)
     }
   } catch (error) {
