@@ -20,13 +20,13 @@ const getAllSolutions = async (request , response ,  next ) =>{
 const giveSolution = async (request , response , next ) =>{
     try {
 
-        const {solution , problemId , userId  , solverName  } = request.body
+        const {solution , problemId , userId    } = request.body
         let t;
         try {
             t = await sequelize.transaction();
             const problem = await SharedCode.findByPk(problemId, {transaction :t })
             const user = await DbUsers.findByPk(userId  , {transaction : t })
-            
+            const solverName = user.username 
             const newSolution = await ProblemSolutions.create({
                 solution : solution,
                 problemId : problemId ,
