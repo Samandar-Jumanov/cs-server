@@ -8,6 +8,7 @@ const SharedCode = sequelize.define('sharedCode', {
     primaryKey: true,
     autoIncrement: true,
   },
+  
   problem: {
     type: DataTypes.JSONB,
     allowNull: false,
