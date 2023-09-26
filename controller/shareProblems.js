@@ -19,20 +19,17 @@ const shareProblem = async (request, response, next) => {
     const { problem, userId   } = request.body;
 
     const t = await sequelize.transaction();
-     const creator = await DbUsers.findByPk(userId) 
-
+    const user = await DbUsers.findByPk(userId , { transaction: t }) 
+    if (!user) {
+      throw new Error('User not found');
+    }
     try {
-      const creatorName = creator.username
+      const creatorName = user.username
       const newProblem = await SharedCode.create({ problem  : problem, 
           creatorName : creatorName , 
           isSolved : false 
          },
          { transaction: t });
-
-      const user = await DbUsers.findByPk(userId, { transaction: t });
-      if (!user) {
-        throw new Error('User not found');
-      }
       await user.addProblems(newProblem  , {transaction : t })
       await user.save()
       await t.commit();
