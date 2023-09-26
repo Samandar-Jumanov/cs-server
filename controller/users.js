@@ -45,7 +45,8 @@ const Signup = async (request , response , next ) =>{
 
         return response.status(201).json({
             username : newUser.username,
-            userId : newUser.id 
+            userId : newUser.id ,
+            token :  token
         })
         } catch (error) {
             console.log(error)
@@ -82,6 +83,7 @@ const Login = async (request , response , next ) =>{
         return response.status(200).json({
             username: user.username ,
             userId : user.id,
+            token : newToken, 
             message :'Logged in succesfully'
         })
 

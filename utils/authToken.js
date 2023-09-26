@@ -1,4 +1,5 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken')
 
 const  authenticateToken = async (req, res, next) =>  {
     const authHeader = req.headers['authorization'];
@@ -10,13 +11,10 @@ const  authenticateToken = async (req, res, next) =>  {
       if (err) {
         return res.sendStatus(403); // Forbidden
       }
-
       req.user = user; // Attach the user object to the request
       next(); // Pass the request to the next middleware
     });
-    
   }
-
 
   module.exports = authenticateToken
 
