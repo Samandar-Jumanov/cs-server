@@ -36,7 +36,7 @@ app.use('/api/v1/follows', followRouter)
 //Messages 
 
 
-app.post('/api/v1/s', async  (request , response , next ) =>{
+app.post('/api/v1/send-message', async  (request , response , next ) =>{
 
   const {userId , recieverUserId  , postId } = request.body 
 
