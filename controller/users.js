@@ -120,10 +120,10 @@ const getUserInfo = async (request , response , next ) =>{
             return;
           }
         }
-  
-      
       }
-      
+
+      console.log(userFollowers)
+      console.log(userFollowings)
         return response.json({
         userMessages : userMessages,
         userProblems : userProblems , 
