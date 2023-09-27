@@ -9,7 +9,7 @@ const app = express()
 const http = require('http')
 const {Server} = require('socket.io')
 const server = http.createServer(app)
-const {DbUsers, Messages} = require('./models/relations')
+const {DbUsers, Messages, SharedCode} = require('./models/relations')
 const cookieParser  = require('cookie-parser')
 
 const io =  new Server(server ,
@@ -36,14 +36,15 @@ app.use('/api/v1/follows', followRouter)
 //Messages 
 
 
-app.post('/api/v1/send-message', async  (request , response , next ) =>{
+app.post('/api/v1/s', async  (request , response , next ) =>{
 
-  const {userId , recieverUserId , message } = request.body 
+  const {userId , recieverUserId  , postId } = request.body 
 
   let t ;
        try {
-        t = await sequelize.transaction();
-
+         t = await sequelize.transaction();
+         
+        const post = await SharedCode.findByPk(postId)
         const senderUser = await DbUsers.findByPk(userId)
         const recieverUser = await DbUsers.findByPk(recieverUserId)
         
@@ -54,15 +55,15 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
         }
 
         try{
-           await  io.to(recieverUserId).emit('send_message', message)
-           console.log(message)
+           await  io.to(recieverUserId).emit('send_message', post)
+           console.log(post);
         }catch(err){
          console.log(err)
         }
    
         
         const newMessage = await Messages.create({
-          message : message ,
+          message : post ,
           userId : userId ,
           recieverUserId : recieverUserId ,
           from : senderUser.username 
