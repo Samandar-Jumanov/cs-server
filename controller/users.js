@@ -3,10 +3,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
-
 const getAllUsers = async (request , response , next ) =>{
     try {
-        
         const allUsers = await DbUsers.findAll()
         response.json({
             allUsers : allUsers
@@ -15,7 +13,6 @@ const getAllUsers = async (request , response , next ) =>{
         next(error)
     }
 }
-
 
 const Signup = async (request , response , next ) =>{
     try {
@@ -116,21 +113,17 @@ const getUserInfo = async (request , response , next ) =>{
         const userFollowed = await user.getFollowing();
   
         let unfollowedUsers = [];
-  
         for (let i = 0; i <= allUsers.length - 1; i++) {
-        let isFollowed = false;
-  
         for (let j = 0; j <= userFollowed.length - 1; j++) {
-          if (allUsers[i].id === userFollowed[j].id) {
-            isFollowed = true;
-            break;
+          if (allUsers[i].id !== userFollowings[j].id) {
+            unfollowedUsers.push(allUsers[i])
+            return;
           }
         }
   
-        if (!isFollowed) {
-          unfollowedUsers.push(allUsers[i]);
-        }
+      
       }
+      
         return response.json({
         userMessages : userMessages,
         userProblems : userProblems , 
