@@ -11,6 +11,7 @@ const {Server} = require('socket.io')
 const server = http.createServer(app)
 const {DbUsers, Messages, SharedCode} = require('./models/relations')
 const cookieParser  = require('cookie-parser')
+const hackatonRouter = require('./mentor_routes/hackaton')
 const stripe = require('stripe')(process.env.STRIPESECRETKEY)
 
 const io =  new Server(server ,
@@ -32,19 +33,10 @@ app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/problems', problemsRouter)
 app.use('/api/v1/solutions', solutionRouter)
 app.use('/api/v1/follows', followRouter)
+app.use('/api/v1/admin/hackaton', hackatonRouter)
 
 
-//check user is online 
 
- const checkUserIsOnline =  async (request , response , next ) =>{
-
-
-  io.on('connection', (socket, userId) =>{
-    socket.emit('connected', response.json("You are connected "))
-    return true 
-  })
-
- }
 //Messages 
 app.post('/api/v1/send-message', async  (request , response , next ) =>{
 
