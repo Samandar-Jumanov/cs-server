@@ -3,6 +3,7 @@ const SharedCode = require('./shareCode');
 const ProblemSolutions = require('./problemSolutions');
 const { UserFollowers ,UserFollowings } = require('./follow');
 const { Messages } = require('./Messages');
+const Hackatons = require('./hackaton');
 
 
 
@@ -66,9 +67,22 @@ DbUsers.hasMany(Messages , {
   as :'messages'
 })
 
+
+//Hackaton and users 
+
+Hackatons.belongsTo(DbUsers , {
+  foreignKey :'userId'
+})
+DbUsers.hasMany(Hackatons, {
+  foreignKey : "userId",
+  as :'hackatons'
+})
 module.exports = { DbUsers, 
   SharedCode, 
   ProblemSolutions , 
   UserFollowings , 
   UserFollowers ,
-  Messages };
+  Hackatons, 
+  Messages
+
+};

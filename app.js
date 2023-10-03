@@ -11,10 +11,11 @@ const {Server} = require('socket.io')
 const server = http.createServer(app)
 const {DbUsers, Messages, SharedCode} = require('./models/relations')
 const cookieParser  = require('cookie-parser')
+const stripe = require('stripe')(process.env.STRIPESECRETKEY)
 
 const io =  new Server(server ,
   cors({
-  origin: 'http://localhost:3000/message', 
+  origin: '*', 
   methods: ['GET', 'POST' , 'PUT', 'DELETE']  , 
   allowedHeaders: ['Content-Type', 'Authorization'] // Allow only specified headers
   }))
@@ -33,9 +34,18 @@ app.use('/api/v1/solutions', solutionRouter)
 app.use('/api/v1/follows', followRouter)
 
 
+//check user is online 
+
+ const checkUserIsOnline =  async (request , response , next ) =>{
+
+
+  io.on('connection', (socket, userId) =>{
+    socket.emit('connected', response.json("You are connected "))
+    return true 
+  })
+
+ }
 //Messages 
-
-
 app.post('/api/v1/send-message', async  (request , response , next ) =>{
 
   const {userId , recieverUserId  , postId } = request.body 
@@ -82,6 +92,34 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
         next(error)
        }
 })
+
+
+app.post('/payment', async (request , response , next ) =>{
+  const {userId , source} = request.body 
+  try {
+
+    const user = await DbUsers.findByPk(userId)
+    if(!user){
+      return response.json({
+        message :'User not found'
+      })
+    }
+
+    const charge = await stripe.charges.create({
+      amount : 5 , 
+      currency,
+      source,
+    });
+     
+    response.json({
+      message :'Payment was succesfully '
+    })
+  } catch (error) {
+    next(error)
+    
+  }
+})
+
 
 sequelize.sync().then(()=>{
   console.log('Database  working ')

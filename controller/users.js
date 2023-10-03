@@ -57,7 +57,6 @@ const Login = async (request , response , next ) =>{
     const {username , password } = request.body 
 
     try {
-
         const user = await DbUsers.findOne({
             where : {username}
         })
@@ -91,7 +90,6 @@ const Login = async (request , response , next ) =>{
             next(error)        
     }
 }
-
 
 const changeRole = async (request , response , next ) =>{
     const {userId} = request.body 
