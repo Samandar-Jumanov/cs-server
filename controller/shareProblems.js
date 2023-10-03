@@ -31,13 +31,13 @@ const shareProblem = async (request, response, next) => {
          },
          { transaction: t });
       await user.addProblems(newProblem  , {transaction : t })
-      await user.save()
+      await user.save();
       await t.commit();
       return  response.json(newProblem);
     } catch (error) {
       await t.rollback();
-      console.log(error)
-       next(error)
+      console.log(error);
+       next(error);
     }
   } catch (error) {
     console.log(error);

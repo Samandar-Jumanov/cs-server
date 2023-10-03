@@ -32,6 +32,7 @@ const Signup = async (request , response , next ) =>{
             username : username ,
             password : hashedPassword,
             token : process.env.SECRETKEY,
+            role :'pupil'
         } )
         
        
@@ -43,7 +44,8 @@ const Signup = async (request , response , next ) =>{
         return response.status(201).json({
             username : newUser.username,
             userId : newUser.id ,
-            token :  token
+            token :  token,
+            role : "pupil"
         })
         } catch (error) {
             console.log(error)
@@ -73,6 +75,7 @@ const Login = async (request , response , next ) =>{
                 message :'Invalid password '
             })
         }
+
         const newToken = await jwt.sign({userId : user.id}, process.env.SECRETKEY)
         user.token =  newToken
         await user.save()
@@ -86,6 +89,31 @@ const Login = async (request , response , next ) =>{
 
     } catch (error) {
             next(error)        
+    }
+}
+
+
+const changeRole = async (request , response , next ) =>{
+    const {userId} = request.body 
+
+    try {
+        const user = await DbUsers.findByPk(userId)
+
+        if(!user) {
+            return response.json({
+                message :'User not found '
+            })
+        }
+
+        user.role = "mentor"
+        await user.save()
+
+        return response.status(201).json({
+            message :'You have changed your role '
+        })
+        
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -148,5 +176,7 @@ module.exports ={
     Signup,
     Login ,
     getAllUsers,
-    getUserInfo
+    getUserInfo,
+    changeRole
 }
+

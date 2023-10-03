@@ -20,6 +20,10 @@ const DbUsers = sequelize.define('dbUsers', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  role :{
+    type : DataTypes.STRING ,
+    allowNull : false 
+  }
  
 });
 
