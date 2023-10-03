@@ -12,6 +12,7 @@ const server = http.createServer(app)
 const {DbUsers, Messages, SharedCode} = require('./models/relations')
 const cookieParser  = require('cookie-parser')
 const hackatonRouter = require('./mentor_routes/hackaton')
+const postsRouter = require('./mentor_routes/posts')
 const stripe = require('stripe')(process.env.STRIPESECRETKEY)
 
 const io =  new Server(server ,
@@ -27,6 +28,7 @@ app.use(cors());
     app.get('/', (req, res , next )=>{
       res.send('Started')
     })
+  
 app.use(cookieParser())
 app.use(express.json())
 app.use('/api/v1/users', usersRouter)
@@ -34,8 +36,7 @@ app.use('/api/v1/problems', problemsRouter)
 app.use('/api/v1/solutions', solutionRouter)
 app.use('/api/v1/follows', followRouter)
 app.use('/api/v1/admin/hackaton', hackatonRouter)
-
-
+app.use('/api/v1/admin/posts', postsRouter)
 
 //Messages 
 app.post('/api/v1/send-message', async  (request , response , next ) =>{
