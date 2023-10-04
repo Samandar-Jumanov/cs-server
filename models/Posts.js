@@ -16,14 +16,10 @@ const Posts =  sequelize.define('posts', {
         type : DataTypes.STRING ,
         allowNull : false 
     },
-    filename: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    filepath: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+   code : {
+    type : DataTypes.STRING ,
+    allowNull : false 
+   },
     userId : {
         type : DataTypes.INTEGER ,
         allowNull : false 

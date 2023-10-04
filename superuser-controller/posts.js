@@ -6,8 +6,7 @@ require('dotenv').config()
 
 
 const createPost = async (request , response , next ) =>{
-    const { title  , description, userId } = request.body;
-    const { filename, path } = request.file;
+    const { title  , description, userId , code  } = request.body;
     let t ;
     try {
         
@@ -20,20 +19,14 @@ const createPost = async (request , response , next ) =>{
             })
         }
 
-        const s3Params = {
-          Bucket:process.env.BUCKETNAME ,
-          Key: filename,
-          Body: require('fs').createReadStream(path),
-        };
 
-        const s3Response = await s3.upload(s3Params).promise();
         const newPost = await Posts.create({
           postTitle : title,
-          filename: s3Response.Key,
-          filepath: s3Response.Location,
+          code : code , 
           postDescription : description,
           userId : userId 
         } , { transaction : t });
+
         await user.addPosts(newPost , { transaction : t })
         await user.save()
         await t.commit();
