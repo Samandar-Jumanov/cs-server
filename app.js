@@ -11,8 +11,8 @@ const {Server} = require('socket.io')
 const server = http.createServer(app)
 const {DbUsers, Messages, SharedCode} = require('./models/relations')
 const cookieParser  = require('cookie-parser')
-const hackatonRouter = require('./mentor_routes/hackaton')
-const postsRouter = require('./mentor_routes/posts')
+const hackatonRouter = require('./superuser-routes/hackaton')
+const postsRouter = require('./superuser-routes/posts')
 const stripe = require('stripe')(process.env.STRIPESECRETKEY)
 
 const io =  new Server(server ,

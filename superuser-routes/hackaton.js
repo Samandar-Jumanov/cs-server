@@ -1,4 +1,4 @@
-const hackatonController = require('../mentor_controller/hackaton');
+const hackatonController = require('../superuser-controller/hackaton');
 const { authRole } = require('../utils/authRole');
 const hackatonRouter = require('express').Router();
 
