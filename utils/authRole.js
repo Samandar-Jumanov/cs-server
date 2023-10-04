@@ -1,9 +1,9 @@
 const authRole = () => (req, res, next) => {
     const { role } = req.headers;
   
-    if (!role || role.toLowerCase() !== 'mentor') {
+    if (!role || role.toLowerCase() !== 'superuser') {
       return res.status(403).json({
-        message: 'Mentor role required',
+        message: 'Super user  role required',
       });
     }
   

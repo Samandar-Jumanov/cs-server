@@ -103,7 +103,7 @@ const changeRole = async (request , response , next ) =>{
             })
         }
 
-        user.role = "mentor"
+        user.role = "superuser"
         await user.save()
 
         return response.status(201).json({

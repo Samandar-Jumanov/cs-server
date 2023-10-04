@@ -25,9 +25,8 @@ const createPost = async (request , response , next ) =>{
           Key: filename,
           Body: require('fs').createReadStream(path),
         };
-    
+
         const s3Response = await s3.upload(s3Params).promise();
-    
         const newPost = await Posts.create({
           postTitle : title,
           filename: s3Response.Key,
