@@ -3,6 +3,7 @@ const followController = require('../controller/follow')
 const authenticateToken = require('../utils/authToken')
 
 followRouter.post('/follow' ,  followController.Followers)
+followRouter.post('/unfollow' ,  followController.unFollow)
 
 
 

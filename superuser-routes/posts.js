@@ -1,9 +1,9 @@
 const postController = require('../superuser-controller/posts')
-const { upload } = require('../routes/multer')
 const postsRouter = require('express').Router()
 const {authRole} = require('../utils/authRole')
+const authenticateToken = require('../utils/authToken')
 
 
-postsRouter.post('/create-post',  authRole ,  postController.createPost)
+postsRouter.post('/create-post',  authRole , authenticateToken,   postController.createPost)
 
 module.exports = postsRouter

@@ -9,10 +9,12 @@ const app = express()
 const http = require('http')
 const {Server} = require('socket.io')
 const server = http.createServer(app)
-const {DbUsers, Messages, SharedCode} = require('./models/relations')
+const {DbUsers, Messages, SharedCode, Posts} = require('./models/relations')
 const cookieParser  = require('cookie-parser')
 const hackatonRouter = require('./superuser-routes/hackaton')
 const postsRouter = require('./superuser-routes/posts')
+const authenticateToken = require('./utils/authToken')
+const { authRole } = require('./utils/authRole')
 const stripe = require('stripe')(process.env.STRIPESECRETKEY)
 
 const io =  new Server(server ,
@@ -39,7 +41,7 @@ app.use('/api/v1/admin/hackaton', hackatonRouter)
 app.use('/api/v1/admin/posts', postsRouter)
 
 //Messages 
-app.post('/api/v1/send-message', async  (request , response , next ) =>{
+app.post('/api/v1/send-message', authenticateToken, authRole,   async  (request , response , next ) =>{
 
   const {userId , recieverUserId  , postId } = request.body 
 
@@ -47,7 +49,7 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
        try {
          t = await sequelize.transaction();
          
-        const post = await SharedCode.findByPk(postId)
+        const post = await Posts.findByPk(postId)
         const senderUser = await DbUsers.findByPk(userId)
         const recieverUser = await DbUsers.findByPk(recieverUserId)
         
@@ -87,7 +89,7 @@ app.post('/api/v1/send-message', async  (request , response , next ) =>{
 })
 
 
-app.post('/payment', async (request , response , next ) =>{
+app.post('/change/role/payment', authenticateToken,  async (request , response , next ) =>{
   const {userId , source} = request.body 
   try {
 
