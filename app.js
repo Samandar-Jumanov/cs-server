@@ -102,7 +102,7 @@ app.post('/change/role/payment', authenticateToken,  async (request , response ,
     }
 
     const charge = await stripe.charges.create({
-      amount : 5 , 
+      amount : 5, 
       currency,
       source,
     });
