@@ -6,7 +6,6 @@ const authRole = () => (req, res, next) => {
         message: 'Super user  role required',
       });
     }
-  
     next();
   };
   
